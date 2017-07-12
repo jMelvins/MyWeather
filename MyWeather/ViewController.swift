@@ -9,40 +9,57 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController, CLLocationManagerDelegate, WeatherGetterDelegate {
 
     let locationManager = CLLocationManager()
     
-    var weatherGetter = WeatherGetter()
+    var weatherGetter: WeatherGetter!
     var determineLocation = DetermineLocation()
     
     var addressFromPlacemark = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        weatherGetter = WeatherGetter(delegate: self)
         
         determineLocation.getLocation(locationManager: locationManager, delegate: self)
-        //getLocation()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-        
     }
 
+    // MARK: - WeatherGetterDelegate
+    
+    func didGetWeather(_ weather: Weather) {
+        DispatchQueue.main.async {
+            print("\nWeather: ")
+            print("Data: \(weather.dateAndTime)")
+            print("City: \(weather.city)")
+            print("Weather description: \(weather.weatherDescription)")
+            //print("Tempreture in Celsium: \(weather.tempCelsius)°")
+            print("Tempreture in Celsium: \(Int(round(weather.tempCelsius)))°")
+        }
+    }
+    
+    func didNotGetWeather(_ error: NSError) {
+        DispatchQueue.main.async {
+            print("Cant get weather")
+        }
+        print("didNotGetWeather error: \(error)")
+
+    }
     
     // MARK: - CLLocationManagerDelegate methods
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
+        print("\nLocation: \n")
         print(newLocation)
         
         let myLocation : CLLocationCoordinate2D = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
         
         weatherGetter.getWeather(lon: myLocation.longitude, lat: myLocation.latitude)
-        
         getReversedGeocodeLocation(from: newLocation)
         
     }
@@ -54,7 +71,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
     
     func getReversedGeocodeLocation(from location: CLLocation){
         
-        CLGeocoder().reverseGeocodeLocation(location, completionHandler: {(placemarks, error) -> Void in
+        CLGeocoder().reverseGeocodeLocation(location, completionHandler:{
+            (placemarks, error) -> Void in
             
             if error != nil {
                 print("Reverse geocoder failed with error" + error!.localizedDescription)
@@ -80,7 +98,7 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
                     line.add(text: placemark.country, separatedBy: ", ")
                     self.addressFromPlacemark = line
                     DispatchQueue.main.async {
-                        print("Geocoded data: \n")
+                        print("\nGeocoded data: ")
                         print(self.addressFromPlacemark)
                     }
                 }
@@ -89,24 +107,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
             else {
                 print("Problem with the data received from geocoder")
             }
+            
         })
     }
 
+
 }
 
-
-extension String{
-    
-    mutating func add(text: String?, separatedBy separator: String = "") {
-        
-        if let text = text {
-            if !isEmpty {
-                self += separator
-            }
-            self += text
-        }
-    }
-}
 
 
 

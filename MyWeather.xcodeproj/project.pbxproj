@@ -18,6 +18,7 @@
 		A01CD4AA1F16598D0024519C /* DetermineLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4A91F16598D0024519C /* DetermineLocation.swift */; };
 		A01CD4AC1F165AEA0024519C /* WeatherGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4AB1F165AEA0024519C /* WeatherGetter.swift */; };
 		A01CD4B01F165EBA0024519C /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4AF1F165EBA0024519C /* Weather.swift */; };
+		A01CD4B21F1666600024519C /* String+AddText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4B11F1666600024519C /* String+AddText.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		A01CD4A91F16598D0024519C /* DetermineLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetermineLocation.swift; sourceTree = "<group>"; };
 		A01CD4AB1F165AEA0024519C /* WeatherGetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherGetter.swift; sourceTree = "<group>"; };
 		A01CD4AF1F165EBA0024519C /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		A01CD4B11F1666600024519C /* String+AddText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+AddText.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 				A01CD4A91F16598D0024519C /* DetermineLocation.swift */,
 				A01CD4AF1F165EBA0024519C /* Weather.swift */,
 				A01CD4AB1F165AEA0024519C /* WeatherGetter.swift */,
+				A01CD4B11F1666600024519C /* String+AddText.swift */,
 				A01CD47C1F1658CE0024519C /* Main.storyboard */,
 				A01CD4821F1658CE0024519C /* Assets.xcassets */,
 				A01CD4841F1658CE0024519C /* LaunchScreen.storyboard */,
@@ -274,6 +277,7 @@
 			files = (
 				A01CD4AA1F16598D0024519C /* DetermineLocation.swift in Sources */,
 				A01CD4AC1F165AEA0024519C /* WeatherGetter.swift in Sources */,
+				A01CD4B21F1666600024519C /* String+AddText.swift in Sources */,
 				A01CD47B1F1658CE0024519C /* ViewController.swift in Sources */,
 				A01CD4791F1658CE0024519C /* AppDelegate.swift in Sources */,
 				A01CD4B01F165EBA0024519C /* Weather.swift in Sources */,
