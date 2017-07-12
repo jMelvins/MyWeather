@@ -9,10 +9,18 @@
 import UIKit
 import CoreLocation
 
-class ViewController: UIViewController, CLLocationManagerDelegate, WeatherGetterDelegate {
+class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate, WeatherGetterDelegate {
 
-    let locationManager = CLLocationManager()
+    @IBOutlet weak var longitudeLabel: UILabel!
+    @IBOutlet weak var latitudeLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
     
+    @IBOutlet weak var iconLabel: UILabel!
+    @IBOutlet weak var tempretureLabel: UILabel!
+    @IBOutlet weak var mainWeather: UILabel!
+    
+    
+    let locationManager = CLLocationManager()
     var weatherGetter: WeatherGetter!
     var determineLocation = DetermineLocation()
     
@@ -22,6 +30,13 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WeatherGetter
         super.viewDidLoad()
         weatherGetter = WeatherGetter(delegate: self)
         
+        longitudeLabel.text = ""
+        latitudeLabel.text = ""
+        addressLabel.text = ""
+        iconLabel.text = ""
+        tempretureLabel.text = ""
+        mainWeather.text = ""
+        
         determineLocation.getLocation(locationManager: locationManager, delegate: self)
     }
 
@@ -29,16 +44,22 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WeatherGetter
         super.didReceiveMemoryWarning()
     }
 
+    
     // MARK: - WeatherGetterDelegate
     
     func didGetWeather(_ weather: Weather) {
         DispatchQueue.main.async {
-            print("\nWeather: ")
-            print("Data: \(weather.dateAndTime)")
-            print("City: \(weather.city)")
-            print("Weather description: \(weather.weatherDescription)")
-            //print("Tempreture in Celsium: \(weather.tempCelsius)°")
-            print("Tempreture in Celsium: \(Int(round(weather.tempCelsius)))°")
+//            print("\nWeather: ")
+//            print("Data: \(weather.dateAndTime)")
+//            print("City: \(weather.city)")
+//            print("Weather description: \(weather.weatherDescription)")
+//            //print("Tempreture in Celsium: \(weather.tempCelsius)°")
+//            print("Tempreture in Celsium: \(Int(round(weather.tempCelsius)))°")
+//            print("\nJust the weather: ")
+//            print(weather)
+            self.iconLabel.text = "🌞"
+            self.tempretureLabel.text = "\(Int(round(weather.tempCelsius)))°"
+            self.mainWeather.text = "\(weather.mainWeather)"
         }
     }
     
@@ -50,12 +71,14 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WeatherGetter
 
     }
     
+    
     // MARK: - CLLocationManagerDelegate methods
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
-        print("\nLocation: \n")
-        print(newLocation)
+        //print("\nLocation: \n")
+        //print(newLocation)
+        
         
         let myLocation : CLLocationCoordinate2D = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
         
@@ -68,6 +91,8 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WeatherGetter
         print("Error: \(error)")
     }
     
+    
+    // MARK: - Reverse Geocoding
     
     func getReversedGeocodeLocation(from location: CLLocation){
         
@@ -98,8 +123,12 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WeatherGetter
                     line.add(text: placemark.country, separatedBy: ", ")
                     self.addressFromPlacemark = line
                     DispatchQueue.main.async {
-                        print("\nGeocoded data: ")
-                        print(self.addressFromPlacemark)
+//                        print("\nGeocoded data: ")
+//                        print(self.addressFromPlacemark)
+                        self.longitudeLabel.text = "\(location.coordinate.longitude)"
+                        self.latitudeLabel.text = "\(location.coordinate.latitude)"
+                        self.addressLabel.text = "\(self.addressFromPlacemark)"
+
                     }
                 }
                 
@@ -111,6 +140,9 @@ class ViewController: UIViewController, CLLocationManagerDelegate, WeatherGetter
         })
     }
 
+    @IBAction func determineWeatherBtn(_ sender: UIButton) {
+        determineLocation.getLocation(locationManager: locationManager, delegate: self)
+    }
 
 }
 
