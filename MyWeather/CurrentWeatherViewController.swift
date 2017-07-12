@@ -24,6 +24,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     
     let locationManager = CLLocationManager()
     var location: CLLocation? = nil
+    var weatherDesc: Weather?
     
     var weatherGetter: WeatherGetter!
     var determineLocation = DetermineLocation()
@@ -58,12 +59,16 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     
     func didGetWeather(_ weather: Weather) {
         DispatchQueue.main.async {
-            //print("\nJust the weather: ")
-            //print(weather)
+            print("\nJust the weather: ")
+            print(weather)
+            
+            self.weatherDesc = weather
             
             self.tempretureLabel.text = "\(Int(round(weather.tempCelsius)))°"
             self.mainWeather.text = "\(weather.mainWeather)"
             self.determineWeatherIcon(iconID: weather.weatherIconID)
+            
+            self.tableView.reloadData()
             
             //Картинки плохого качества, будем юзать эмоджи
             //self.downloadImageFromServer(iconID: weather.weatherIconID)
@@ -153,16 +158,16 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             return
         }
         
-        var distance = CLLocationDistance(DBL_MAX)
+        var distance = CLLocationDistance(Double.greatestFiniteMagnitude)
         if let location = location {
-            print("\nDistance: ")
+            //print("\nDistance: ")
             distance = newLocation.distance(from: location)
-            print(distance)
-            print("\nLoc acc: ")
-            print(location.horizontalAccuracy)
-            print("\nNewLoca: ")
-            print(newLocation.horizontalAccuracy)
             locationManager.stopUpdatingLocation()
+//            print(distance)
+//            print("\nLoc acc: ")
+//            print(location.horizontalAccuracy)
+//            print("\nNewLoca: ")
+//            print(newLocation.horizontalAccuracy)
         }
         
         guard distance > 0 else{
@@ -175,6 +180,10 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         if location == nil || distance > 5 {
             location = newLocation
             locationManager.stopUpdatingLocation()
+            
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
+            }
             
             let myLocation : CLLocationCoordinate2D = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
             
@@ -189,7 +198,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("ROROROROROR")
+        
         print("Error: \(error)")
         
         longitudeLabel.text = "0.00"
@@ -200,7 +209,12 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         mainWeather.text = "Could not determine the weather."
         determineWeatherIcon(iconID: "666")
 
-        print("didFail")
+        locationManager.stopUpdatingLocation()
+        
+        DispatchQueue.main.async {
+            self.location = nil
+            self.tableView.reloadData()
+        }
     }
     
     
@@ -301,23 +315,72 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     // MARK: - TableView
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return 5
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-        
+
         if indexPath.row == 0{
-            cell.textLabel?.text = "asdasdasd"
+            cell.textLabel?.text = "Date:"
+            if let location = location{
+                let dateFormatter = DateFormatter.localizedString(from: location.timestamp, dateStyle: .medium, timeStyle: .medium)
+                cell.detailTextLabel?.text = "\(dateFormatter)"
+            }else {
+                cell.detailTextLabel?.text = "Could not define date."
+            }
+            //return cell
+        }
+        
+        if indexPath.row == 1{
+            //let cell = tableView.dequeueReusableCell(withIdentifier: "notCell", for: indexPath)
+            cell.textLabel?.text = "Weather description"
+            
+            if let weatherDesc = weatherDesc{
+                cell.detailTextLabel?.text = "\(String(weatherDesc.weatherDescription)!.uppercased())"
+            }else {
+                cell.detailTextLabel?.text = "Could not define it."
+            }
+            
+            //return cell
         }
     
-        if indexPath.row == 1{
-            cell.textLabel?.text = "AAAAAAA"
+        if indexPath.row == 2{
+            //let cell = tableView.dequeueReusableCell(withIdentifier: "notCell", for: indexPath)
+            cell.textLabel?.text = "Humidity 💧"
+            
+            if let weatherDesc = weatherDesc{
+                cell.detailTextLabel?.text = "\(weatherDesc.humidity)"
+            }else {
+                cell.detailTextLabel?.text = "Could not define it."
+            }
+            
+            //return cell
         }
-        if indexPath.row > 1{
-            cell.textLabel?.text = "\(indexPath.row+1) ss"
+        if indexPath.row == 3{
+            //let cell = tableView.dequeueReusableCell(withIdentifier: "notCell", for: indexPath)
+            cell.textLabel?.text = "Wind speed 💨"
+            
+            if let weatherDesc = weatherDesc{
+                cell.detailTextLabel?.text = "\(weatherDesc.windSpeed) m/s"
+            }else {
+                cell.detailTextLabel?.text = "Could not define it."
+            }
+            
+            //return cell
         }
-        
+        if indexPath.row == 4{
+            //let cell = tableView.dequeueReusableCell(withIdentifier: "notCell", for: indexPath)
+            cell.textLabel?.text = "Clouds ☁️"
+            
+            if let weatherDesc = weatherDesc{
+                cell.detailTextLabel?.text = "\(weatherDesc.cloudCover)%"
+            }else {
+                cell.detailTextLabel?.text = "Could not define it."
+            }
+            
+            //return cell
+        }
         
         return cell
     }
