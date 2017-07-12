@@ -15,6 +15,9 @@
 		A01CD4861F1658CE0024519C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A01CD4841F1658CE0024519C /* LaunchScreen.storyboard */; };
 		A01CD4911F1658CE0024519C /* MyWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4901F1658CE0024519C /* MyWeatherTests.swift */; };
 		A01CD49C1F1658CE0024519C /* MyWeatherUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD49B1F1658CE0024519C /* MyWeatherUITests.swift */; };
+		A01CD4AA1F16598D0024519C /* DetermineLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4A91F16598D0024519C /* DetermineLocation.swift */; };
+		A01CD4AC1F165AEA0024519C /* WeatherGetter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4AB1F165AEA0024519C /* WeatherGetter.swift */; };
+		A01CD4B01F165EBA0024519C /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4AF1F165EBA0024519C /* Weather.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +52,9 @@
 		A01CD4971F1658CE0024519C /* MyWeatherUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MyWeatherUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A01CD49B1F1658CE0024519C /* MyWeatherUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyWeatherUITests.swift; sourceTree = "<group>"; };
 		A01CD49D1F1658CE0024519C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A01CD4A91F16598D0024519C /* DetermineLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetermineLocation.swift; sourceTree = "<group>"; };
+		A01CD4AB1F165AEA0024519C /* WeatherGetter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherGetter.swift; sourceTree = "<group>"; };
+		A01CD4AF1F165EBA0024519C /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +107,9 @@
 			children = (
 				A01CD4781F1658CE0024519C /* AppDelegate.swift */,
 				A01CD47A1F1658CE0024519C /* ViewController.swift */,
+				A01CD4A91F16598D0024519C /* DetermineLocation.swift */,
+				A01CD4AF1F165EBA0024519C /* Weather.swift */,
+				A01CD4AB1F165AEA0024519C /* WeatherGetter.swift */,
 				A01CD47C1F1658CE0024519C /* Main.storyboard */,
 				A01CD4821F1658CE0024519C /* Assets.xcassets */,
 				A01CD4841F1658CE0024519C /* LaunchScreen.storyboard */,
@@ -196,6 +205,7 @@
 				TargetAttributes = {
 					A01CD4741F1658CE0024519C = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = 5YVMX8TY6Q;
 						ProvisioningStyle = Automatic;
 					};
 					A01CD48B1F1658CE0024519C = {
@@ -262,8 +272,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A01CD4AA1F16598D0024519C /* DetermineLocation.swift in Sources */,
+				A01CD4AC1F165AEA0024519C /* WeatherGetter.swift in Sources */,
 				A01CD47B1F1658CE0024519C /* ViewController.swift in Sources */,
 				A01CD4791F1658CE0024519C /* AppDelegate.swift in Sources */,
+				A01CD4B01F165EBA0024519C /* Weather.swift in Sources */,
 				A01CD4811F1658CE0024519C /* MyWeather.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -416,6 +429,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5YVMX8TY6Q;
 				INFOPLIST_FILE = MyWeather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = VladShilov.MyWeather;
@@ -428,6 +442,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = 5YVMX8TY6Q;
 				INFOPLIST_FILE = MyWeather/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = VladShilov.MyWeather;
