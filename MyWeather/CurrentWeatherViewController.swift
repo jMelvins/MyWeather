@@ -32,7 +32,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     var addressFromPlacemark = ""
     var image = UIImage()
 
-    
+    //Добавляем спиннер программно
+    let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +46,14 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         iconLabel.text = ""
         tempretureLabel.text = ""
         mainWeather.text = ""
+        
+        if view.viewWithTag(1000) == nil {
+            spinner.center = addressLabel.center
+            spinner.center.y += spinner.bounds.size.height/2 + 20
+            spinner.startAnimating()
+            spinner.tag = 1000
+            view.addSubview(spinner)
+        }
         
         //determineLocation.getLocation(locationManager: locationManager, delegate: self)
         getLocation()
@@ -117,7 +126,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                 let openSettingsAction = UIAlertAction(title: "Open Settings", style: .default) {
                     action in
                     if let url = NSURL(string: UIApplicationOpenSettingsURLString) {
-                        UIApplication.shared.openURL(url as URL)
+                        //UIApplication.shared.openURL(url as URL)
+                        UIApplication.shared.open(url as URL, options: [:], completionHandler: nil)
                     }
                 }
                 alert.addAction(cancelAction)
@@ -147,6 +157,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         print("\nLocation from newLocation: \n")
         print(newLocation)
         
+        spinner.stopAnimating()
+        spinner.isHidden = true
         
         //A negative value indicates that the location’s latitude and longitude are invalid.
         if newLocation.horizontalAccuracy < 0 {
@@ -200,6 +212,9 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         
         print("Error: \(error)")
+        
+        spinner.stopAnimating()
+        spinner.isHidden = true
         
         longitudeLabel.text = "0.00"
         latitudeLabel.text = "0.00"
@@ -306,6 +321,9 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     //MARK: - IBActions
 
     @IBAction func determineWeatherBtn(_ sender: UIButton) {
+        
+        spinner.startAnimating()
+        spinner.isHidden = false
         
         getLocation()
         //determineLocation.getLocation(locationManager: locationManager, delegate: self)
@@ -444,19 +462,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         present(alert, animated: true, completion: nil)
     }
     
-    func updateLabels(didGetLocation: Bool){
-        
-        
-        if let location = location {
-            longitudeLabel.text = "\(location.coordinate.longitude)"
-            latitudeLabel.text = "\(location.coordinate.latitude)"
-            addressLabel.text = "\(self.addressFromPlacemark)"
-        }else {
-            longitudeLabel.text = ""
-            latitudeLabel.text = ""
-            addressLabel.text = "Could not determine your location"
-        }
-    }
 }
 
 
