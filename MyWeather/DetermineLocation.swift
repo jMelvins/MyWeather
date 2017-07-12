@@ -38,7 +38,7 @@ class DetermineLocation {
         
         locationManager.delegate = delegate
         //locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.desiredAccuracy = kCLLocationAccuracyThreeKilometers
         locationManager.requestLocation()
         //locationManager.startUpdatingLocation()
     }
