@@ -77,19 +77,9 @@ class HistoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! CustomCell
         
-//        let weather = weatherRequest[indexPath.row]
-//        let currenDate = DateFormatter.localizedString(from: weather.dateOfReq! as Date, dateStyle: .medium, timeStyle: .medium)
-        
         let history = fetchedResultsController.object(at: indexPath)
         cell.configure(for: history)
         
-//        cell.addressLabel.text = "\(weather.address!)"
-//        cell.dateLabel.text = "\(currenDate)"
-//        cell.iconLabel.text = "\(weather.icon!)"
-//        cell.latitudeLabel.text = "\(weather.latitude)"
-//        cell.longitudeLabel.text = "\(weather.longitude)"
-//        //cell.tempLabel.text = "\(Int(weather.tempreture))°"
-
         return cell
     }
  
@@ -102,17 +92,19 @@ class HistoryViewController: UITableViewController {
     }
     */
 
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle,forRowAt indexPath: IndexPath) {
+        
+        //контекст удаляет элемент по адресу ячейки, затем NSFetchedResultsChangeDelete это чекает и уже выполняет свои методы, описанный в extension
         if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
+            let history = fetchedResultsController.object(at: indexPath)
+            managedObjectContext.delete(history)
+            do {
+                try managedObjectContext.save()
+            } catch {
+                fatalCoreDataError(error)
+            }
+        }
     }
-    */
 
     /*
     // Override to support rearranging the table view.
