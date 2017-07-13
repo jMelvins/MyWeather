@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate, WeatherGetterDelegate, UITableViewDataSource, UITableViewDelegate {
 
@@ -22,6 +23,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     @IBOutlet weak var mainWeather: UILabel!
     
     
+    var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     let locationManager = CLLocationManager()
     var location: CLLocation? = nil
     var weatherDesc: Weather?
@@ -31,6 +33,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     
     var addressFromPlacemark = ""
     var image = UIImage()
+    
+    var managedObjectContext: NSManagedObjectContext?
 
     //Добавляем спиннер программно
     let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
@@ -78,6 +82,9 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             self.determineWeatherIcon(iconID: weather.weatherIconID)
             
             self.tableView.reloadData()
+            
+            //Так как мы получили данные - сохраняем их в CoreData
+            //self.savingDataInCoreData()
             
             //Картинки плохого качества, будем юзать эмоджи
             //self.downloadImageFromServer(iconID: weather.weatherIconID)
@@ -197,12 +204,13 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                 self.tableView.reloadData()
             }
             
-            let myLocation : CLLocationCoordinate2D = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
+            //let myLocation : CLLocationCoordinate2D = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
+            coordinate = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
             
-            longitudeLabel.text = "\(myLocation.longitude)"
-            latitudeLabel.text = "\(myLocation.latitude)"
+            longitudeLabel.text = "\(coordinate.longitude)"
+            latitudeLabel.text = "\(coordinate.latitude)"
             
-            weatherGetter.getWeather(lon: myLocation.longitude, lat: myLocation.latitude)
+            weatherGetter.getWeather(lon: coordinate.longitude, lat: coordinate.latitude)
             getReversedGeocodeLocation(from: newLocation)
             //updateLabels()
 
@@ -265,7 +273,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                     DispatchQueue.main.async {
 //                        print("\nGeocoded data: ")
 //                        print(self.addressFromPlacemark)
-                        //self.addressFromPlacemark = line
+                        self.addressFromPlacemark = line
                         self.addressLabel.text = line
                         print("get reverse")
                         //self.updateLabels()
@@ -286,6 +294,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         spinner.isHidden = false
         
         getLocation()
+        
+        savingDataInCoreData()
         //determineLocation.getLocation(locationManager: locationManager, delegate: self)
         //updateLabels()
     }
@@ -416,6 +426,34 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         alert.addAction(okAction)
         present(alert, animated: true, completion: nil)
+    }
+    
+    // MARK: - CoreData
+    
+    func savingDataInCoreData(){
+        
+        //let weatherRequest: WeatherRequest
+        let weatherRequest = WeatherRequest(context: managedObjectContext!)
+        
+        weatherRequest.address = addressFromPlacemark
+        weatherRequest.latitude = coordinate.latitude
+        weatherRequest.longitude = coordinate.longitude
+        weatherRequest.dateOfReq = location?.timestamp 
+        weatherRequest.icon = weatherDesc?.weatherIconID
+        weatherRequest.tempreture = (weatherDesc?.tempCelsius)!
+        weatherRequest.mainWeather = weatherDesc?.mainWeather
+        weatherRequest.weatherDesc = weatherDesc?.weatherDescription
+        weatherRequest.humidity = Int32((weatherDesc?.humidity)!)
+        weatherRequest.windSpeed = (weatherDesc?.windSpeed)!
+        weatherRequest.clouds = Int32((weatherDesc?.cloudCover)!)
+        
+        do {
+            try managedObjectContext?.save()
+        } catch  {
+            print("Core Data Error:")
+            fatalCoreDataError(error)
+        }
+        //}
     }
     
 }
