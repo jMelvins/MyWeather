@@ -73,6 +73,7 @@ class HistoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = fetchedResultsController.sections![section]
         //Выдает неправильные значение если запущен дебаг. Если просто открыть приложение, обновляет все как надо
+        //Выдавало не те значения из за того что мы неправильно изменяли кор дату
 //        print("\n eto \n")
 //        print(sectionInfo.numberOfObjects)
         return sectionInfo.numberOfObjects

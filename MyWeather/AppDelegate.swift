@@ -29,6 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let historyViewController = navigationController.viewControllers[0]
                 as! HistoryViewController
             historyViewController.managedObjectContext = managedObjectContext
+            let _ = historyViewController.view
             
         }
         
