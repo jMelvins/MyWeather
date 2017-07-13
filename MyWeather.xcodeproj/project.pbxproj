@@ -20,6 +20,7 @@
 		A01CD4B01F165EBA0024519C /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4AF1F165EBA0024519C /* Weather.swift */; };
 		A01CD4B21F1666600024519C /* String+AddText.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4B11F1666600024519C /* String+AddText.swift */; };
 		A01CD4B61F16D3E10024519C /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4B51F16D3E10024519C /* CustomCell.swift */; };
+		A01CD4B81F16EE0E0024519C /* HistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4B71F16EE0E0024519C /* HistoryViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		A01CD4AF1F165EBA0024519C /* Weather.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		A01CD4B11F1666600024519C /* String+AddText.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+AddText.swift"; sourceTree = "<group>"; };
 		A01CD4B51F16D3E10024519C /* CustomCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
+		A01CD4B71F16EE0E0024519C /* HistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistoryViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,17 +111,18 @@
 		A01CD4771F1658CE0024519C /* MyWeather */ = {
 			isa = PBXGroup;
 			children = (
+				A01CD4871F1658CE0024519C /* Info.plist */,
 				A01CD4781F1658CE0024519C /* AppDelegate.swift */,
 				A01CD47A1F1658CE0024519C /* CurrentWeatherViewController.swift */,
 				A01CD4B51F16D3E10024519C /* CustomCell.swift */,
 				A01CD4A91F16598D0024519C /* DetermineLocation.swift */,
+				A01CD4B71F16EE0E0024519C /* HistoryViewController.swift */,
+				A01CD4B11F1666600024519C /* String+AddText.swift */,
 				A01CD4AF1F165EBA0024519C /* Weather.swift */,
 				A01CD4AB1F165AEA0024519C /* WeatherGetter.swift */,
-				A01CD4B11F1666600024519C /* String+AddText.swift */,
-				A01CD47C1F1658CE0024519C /* Main.storyboard */,
 				A01CD4821F1658CE0024519C /* Assets.xcassets */,
 				A01CD4841F1658CE0024519C /* LaunchScreen.storyboard */,
-				A01CD4871F1658CE0024519C /* Info.plist */,
+				A01CD47C1F1658CE0024519C /* Main.storyboard */,
 				A01CD47F1F1658CE0024519C /* MyWeather.xcdatamodeld */,
 			);
 			path = MyWeather;
@@ -284,6 +287,7 @@
 				A01CD47B1F1658CE0024519C /* CurrentWeatherViewController.swift in Sources */,
 				A01CD4791F1658CE0024519C /* AppDelegate.swift in Sources */,
 				A01CD4B01F165EBA0024519C /* Weather.swift in Sources */,
+				A01CD4B81F16EE0E0024519C /* HistoryViewController.swift in Sources */,
 				A01CD4B61F16D3E10024519C /* CustomCell.swift in Sources */,
 				A01CD4811F1658CE0024519C /* MyWeather.xcdatamodeld in Sources */,
 			);

@@ -271,7 +271,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                         //self.updateLabels()
                     }
                 }
-                
             }
             else {
                 print("Problem with the data received from geocoder")
@@ -280,46 +279,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         })
     }
     
-    //MARK: - Get Icon
-    
-    func downloadImageFromServer(iconID: String){
-        
-        let iconURL = URL(string: "http://openweathermap.org/img/w/\(iconID).png")
-        
-        let session = URLSession(configuration: .default)
-        
-        let downloadPicTask = session.dataTask(with: iconURL!) {
-            (data, response, error) in
-            
-            // The download has finished.
-            if let e = error {
-                print("Error downloading cat picture: \(e)")
-            } else {
-                // No errors found.
-                // It would be weird if we didn't have a response, so check for that too.
-                if let res = response as? HTTPURLResponse {
-                    print("Downloaded cat picture with response code \(res.statusCode)")
-                    if let imageData = data {
-                        
-                        // Finally convert that Data into an image and do what you wish with it.
-                        //let image = UIImage(data: imageData)
-                        self.image = UIImage(data: imageData)!
-                        //self.imageView.image = image
-                        
-                    } else {
-                        print("Couldn't get image: Image is nil")
-                    }
-                } else {
-                    print("Couldn't get response code for some reason")
-                }
-            }
-        }
-        
-        downloadPicTask.resume()
-    }
-
     //MARK: - IBActions
-
     @IBAction func determineWeatherBtn(_ sender: UIButton) {
         
         spinner.startAnimating()
@@ -347,7 +307,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             }else {
                 cell.detailTextLabel?.text = "Could not define date."
             }
-            //return cell
+            
         }
         
         if indexPath.row == 1{
@@ -360,7 +320,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                 cell.detailTextLabel?.text = "Could not define it."
             }
             
-            //return cell
         }
     
         if indexPath.row == 2{
@@ -372,8 +331,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             }else {
                 cell.detailTextLabel?.text = "Could not define it."
             }
-            
-            //return cell
         }
         if indexPath.row == 3{
             //let cell = tableView.dequeueReusableCell(withIdentifier: "notCell", for: indexPath)
@@ -385,7 +342,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                 cell.detailTextLabel?.text = "Could not define it."
             }
             
-            //return cell
         }
         if indexPath.row == 4{
             //let cell = tableView.dequeueReusableCell(withIdentifier: "notCell", for: indexPath)
@@ -397,11 +353,11 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                 cell.detailTextLabel?.text = "Could not define it."
             }
             
-            //return cell
         }
         
         return cell
     }
+    
     
     //MARK: -
     //Не обращайте внимание, это всего лишь костыль
