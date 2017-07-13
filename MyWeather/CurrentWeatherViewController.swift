@@ -79,16 +79,23 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             
             self.tempretureLabel.text = "\(Int(round(weather.tempCelsius)))°"
             self.mainWeather.text = "\(weather.mainWeather)"
-            self.determineWeatherIcon(iconID: weather.weatherIconID)
+            self.iconLabel.text = self.determineWeatherIcon(iconID: weather.weatherIconID)
+            //self.determineWeatherIcon(iconID: weather.weatherIconID)
             
             self.tableView.reloadData()
             
             //Так как мы получили данные - сохраняем их в CoreData
-            self.savingDataInCoreData()
+            //self.savingDataInCoreData()
             
             //Картинки плохого качества, будем юзать эмоджи
             //self.downloadImageFromServer(iconID: weather.weatherIconID)
         }
+        
+        //Так как все данный получены - сохраняем в CoreData
+        //Делаем это через 1 секунду, т.к. реверс геокодиг работает долго
+        afterDelay(1, closure: {
+            self.savingDataInCoreData()
+        })
     }
     
     
@@ -374,48 +381,67 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     //MARK: -
     //Не обращайте внимание, это всего лишь костыль
     
-    func determineWeatherIcon(iconID: String){
+    func determineWeatherIcon(iconID: String) -> String{
         
         switch iconID {
         case "01d":
-            self.iconLabel.text = "🌞"//clear sky
+            //self.iconLabel.text = "🌞"//clear sky
+            return "🌞"
         case "01n":
-            self.iconLabel.text = "🌚"
+            //self.iconLabel.text = "🌚"
+            return "🌚"
         case "02d":
-            self.iconLabel.text = "🌤"//few clouds
+            //self.iconLabel.text = "🌤"//few clouds
+            return "🌤"
         case "02n":
-            self.iconLabel.text = "🌤"
+            //self.iconLabel.text = "🌤"
+            return "🌤"
         case "03d":
-            self.iconLabel.text = "⛅️"//scattered clouds
+            //self.iconLabel.text = "⛅️"//scattered clouds
+            return "⛅️"
         case "03n":
-            self.iconLabel.text = "⛅️"
+            //self.iconLabel.text = "⛅️"
+            return "⛅️"
         case "04d":
-            self.iconLabel.text = "☁️"//broken clouds
+            //self.iconLabel.text = "☁️"//broken clouds
+            return "☁️"
         case "04n":
             self.iconLabel.text = "☁️"
+            return "☁️"
         case "09d":
-            self.iconLabel.text = "🌧"//shower rain
+            //self.iconLabel.text = "🌧"//shower rain
+            return "🌧"
         case "09n":
-            self.iconLabel.text = "🌧"
+            //self.iconLabel.text = "🌧"
+            return "🌧"
         case "10d":
-            self.iconLabel.text = "🌦"//rain
+            //self.iconLabel.text = "🌦"//rain
+            return "🌦"
         case "10n":
-            self.iconLabel.text = "🌦"
+            //self.iconLabel.text = "🌦"
+            return "🌦"
         case "11d":
-            self.iconLabel.text = "⛈"//thunderstorm
+            //self.iconLabel.text = "⛈"//thunderstorm
+            return "⛈"
         case "11n":
-            self.iconLabel.text = "⛈"
+            //self.iconLabel.text = "⛈"
+            return "⛈"
         case "13d":
-            self.iconLabel.text = "🌨"//snow
+            //self.iconLabel.text = "🌨"//snow
+            return "🌨"
         case "13n":
-            self.iconLabel.text = "🌨"
+            //self.iconLabel.text = "🌨"
+            return "🌨"
         case "50d":
-            self.iconLabel.text = "🌫"//mist
+            //self.iconLabel.text = "🌫"//mist
+            return "🌫"
         case "50n":
-            self.iconLabel.text = "🌫"
+            //self.iconLabel.text = "🌫"
+            return "🌫"
             
         default:
-            self.iconLabel.text = "☄️"
+            //self.iconLabel.text = "☄️"
+            return "☄️"
         }
     }
     
@@ -436,18 +462,23 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         //let weatherRequest: WeatherRequest
         let weatherRequest = WeatherRequest(context: managedObjectContext!)
+        //let iconID = determineWeatherIcon(iconID: (weatherDesc?.weatherIconID)!)
         
         weatherRequest.address = addressFromPlacemark
         weatherRequest.latitude = coordinate.latitude
         weatherRequest.longitude = coordinate.longitude
-        weatherRequest.dateOfReq = location?.timestamp 
-        weatherRequest.icon = weatherDesc?.weatherIconID
-        weatherRequest.tempreture = (weatherDesc?.tempCelsius)!
+        weatherRequest.dateOfReq = location?.timestamp as NSDate?
+        weatherRequest.icon = determineWeatherIcon(iconID: (weatherDesc?.weatherIconID)!)
+        weatherRequest.tempreture = round((weatherDesc?.tempCelsius)!)
         weatherRequest.mainWeather = weatherDesc?.mainWeather
         weatherRequest.weatherDesc = weatherDesc?.weatherDescription
         weatherRequest.humidity = (weatherDesc?.humidity)!
         weatherRequest.windSpeed = (weatherDesc?.windSpeed)!
         weatherRequest.clouds = (weatherDesc?.cloudCover)!
+        
+//        print("Saving data")
+//        print(weatherRequest.address!)
+//        print(weatherRequest.icon!)
         
         do {
             try managedObjectContext?.save()

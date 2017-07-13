@@ -10,9 +10,27 @@ import UIKit
 import CoreData
 
 class HistoryViewController: UITableViewController {
+    
+    var managedObjectContext: NSManagedObjectContext!
 
+    var weatherRequest = [WeatherRequest]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        let fetchRequest = NSFetchRequest<WeatherRequest>()
+        // 2
+        let entity = WeatherRequest.entity()
+        fetchRequest.entity = entity
+        // 3
+        let sortDescriptor = NSSortDescriptor(key: "dateOfReq", ascending: true)
+        fetchRequest.sortDescriptors = [sortDescriptor]
+        do { // 4
+            weatherRequest = try managedObjectContext.fetch(fetchRequest)
+        } catch {
+            fatalCoreDataError(error)
+        }
+        //добавляет кнопку редактирования справа сверху
+        navigationItem.rightBarButtonItem = editButtonItem
 
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
@@ -25,6 +43,9 @@ class HistoryViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    // MARK: -
+    
 
     // MARK: - Table view data source
     
@@ -34,19 +55,22 @@ class HistoryViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 1
+        return weatherRequest.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! CustomCell
-
-        cell.addressLabel.text = "Ryytimaa 2,2 Ryytimma, Espoo, UUsimaa, 02940, Finland"
-        cell.dateLabel.text = "Jul 13, 2017, 3:22:25 AM"
-        cell.iconLabel.text = "🌚"
-        cell.latitudeLabel.text = "22.22123121"
-        cell.longitudeLabel.text = "14.88312321"
-        cell.tempLabel.text = "15°"
+        
+        let weather = weatherRequest[indexPath.row]
+        let currenDate = DateFormatter.localizedString(from: weather.dateOfReq! as Date, dateStyle: .medium, timeStyle: .medium)
+        
+        cell.addressLabel.text = "\(weather.address!)"
+        cell.dateLabel.text = "\(currenDate)"
+        cell.iconLabel.text = "\(weather.icon!)"
+        cell.latitudeLabel.text = "\(weather.latitude)"
+        cell.longitudeLabel.text = "\(weather.longitude)"
+        //cell.tempLabel.text = "\(Int(weather.tempreture))°"
 
         return cell
     }

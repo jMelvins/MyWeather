@@ -21,3 +21,12 @@ func fatalCoreDataError(_ error: Error) {
     print("*** Fatal error: \(error)")
     NotificationCenter.default.post(name: MyManagedObjectContextSaveDidFailNotification, object: nil)
 }
+
+
+func afterDelay(_ seconds: Double, closure: @escaping () -> ()) {
+    
+    //Take a good look at afterDelay()’s second parameter, the one named closure. Its type is () -> (). That’s not some weird emoticon; it is Swift notation for a parameter that takes a closure with no arguments and no return value.
+    
+    DispatchQueue.main.asyncAfter(deadline: .now() + seconds, execute: closure)
+    
+}

@@ -25,6 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 as! CurrentWeatherViewController
             currentWeatherViewController.managedObjectContext = managedObjectContext
 
+            let navigationController = tabBarViewControllers[1] as! UINavigationController
+            let historyViewController = navigationController.viewControllers[0]
+                as! HistoryViewController
+            historyViewController.managedObjectContext = managedObjectContext
+            
         }
         
         //UILabel.appearance().font = UIFont(name: "Courier New", size: 120.0)
