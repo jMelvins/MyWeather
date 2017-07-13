@@ -17,9 +17,9 @@ extension WeatherRequest {
     }
 
     @NSManaged public var address: String?
-    @NSManaged public var clouds: Int32
+    @NSManaged public var clouds: Int
     @NSManaged public var dateOfReq: Date?
-    @NSManaged public var humidity: Int32
+    @NSManaged public var humidity: Int
     @NSManaged public var icon: String?
     @NSManaged public var latitude: Double
     @NSManaged public var longitude: Double

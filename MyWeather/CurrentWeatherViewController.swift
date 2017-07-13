@@ -84,7 +84,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             self.tableView.reloadData()
             
             //Так как мы получили данные - сохраняем их в CoreData
-            //self.savingDataInCoreData()
+            self.savingDataInCoreData()
             
             //Картинки плохого качества, будем юзать эмоджи
             //self.downloadImageFromServer(iconID: weather.weatherIconID)
@@ -226,7 +226,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         longitudeLabel.text = "0.00"
         latitudeLabel.text = "0.00"
-        addressLabel.text = "Could not determine your location"
+        addressLabel.text = "Could not define your location."
         
         tempretureLabel.text = "666°"
         mainWeather.text = "Could not determine the weather."
@@ -295,7 +295,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         getLocation()
         
-        savingDataInCoreData()
+        //savingDataInCoreData()
         //determineLocation.getLocation(locationManager: locationManager, delegate: self)
         //updateLabels()
     }
@@ -364,6 +364,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             }
             
         }
+        
+        
         
         return cell
     }
@@ -443,9 +445,9 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         weatherRequest.tempreture = (weatherDesc?.tempCelsius)!
         weatherRequest.mainWeather = weatherDesc?.mainWeather
         weatherRequest.weatherDesc = weatherDesc?.weatherDescription
-        weatherRequest.humidity = Int32((weatherDesc?.humidity)!)
+        weatherRequest.humidity = (weatherDesc?.humidity)!
         weatherRequest.windSpeed = (weatherDesc?.windSpeed)!
-        weatherRequest.clouds = Int32((weatherDesc?.cloudCover)!)
+        weatherRequest.clouds = (weatherDesc?.cloudCover)!
         
         do {
             try managedObjectContext?.save()
@@ -453,7 +455,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             print("Core Data Error:")
             fatalCoreDataError(error)
         }
-        //}
     }
     
 }
