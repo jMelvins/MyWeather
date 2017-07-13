@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="xIN-cX-CiF">
-    <device id="retina5_5" orientation="portrait">
+    <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -19,17 +19,17 @@
                         <viewControllerLayoutGuide type="bottom" id="r7M-ZA-pu0"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ifx-lE-AUz">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Latitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="gxf-ki-ejP">
-                                <rect key="frame" x="35" y="514" width="92" height="20"/>
+                                <rect key="frame" x="31" y="346" width="92" height="20"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(Geocoded data)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="L8p-30-uKd">
-                                <rect key="frame" x="20" y="556" width="374" height="45"/>
+                                <rect key="frame" x="16" y="388" width="288" height="45"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="45" id="VnT-kR-E8Y"/>
                                 </constraints>
@@ -38,7 +38,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YsS-gI-NGm">
-                                <rect key="frame" x="20" y="630" width="374" height="33"/>
+                                <rect key="frame" x="16" y="462" width="288" height="33"/>
                                 <color key="backgroundColor" red="1" green="0.51765681379999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <state key="normal" title="Determine the weather">
@@ -49,64 +49,64 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Longitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="T7f-Ut-XSu">
-                                <rect key="frame" x="35" y="486" width="102.66666666666666" height="20"/>
+                                <rect key="frame" x="31" y="318" width="102.5" height="20"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(latitude label)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="TPy-xp-wWb">
-                                <rect key="frame" x="122" y="513" width="268" height="21"/>
+                                <rect key="frame" x="122" y="345" width="182" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jEh-GY-oUC">
-                                <rect key="frame" x="20" y="28" width="374" height="450"/>
+                                <rect key="frame" x="16" y="28" width="288" height="282"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🌚" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="L7T-MR-QFJ">
-                                        <rect key="frame" x="-1" y="7" width="223" height="222"/>
+                                        <rect key="frame" x="-1" y="7" width="137" height="138"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="140"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Clear sky" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="vO8-NF-U7b">
-                                        <rect key="frame" x="190" y="30" width="168" height="70"/>
+                                        <rect key="frame" x="144" y="30" width="128" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="23"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="55°" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="xL2-Ej-u23">
-                                        <rect key="frame" x="180" y="49" width="186" height="136"/>
+                                        <rect key="frame" x="138" y="49" width="142" height="79"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="140"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AmM-ku-kzc">
-                                        <rect key="frame" x="-1" y="233" width="375" height="217"/>
+                                        <rect key="frame" x="-1" y="146" width="289" height="136"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <color key="separatorColor" red="1" green="0.51765681379999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" textLabel="dK2-5N-n98" detailTextLabel="hu0-Zc-g3w" style="IBUITableViewCellStyleSubtitle" id="bMb-Wk-Bn9">
-                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                <rect key="frame" x="0.0" y="28" width="289" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bMb-Wk-Bn9" id="VgV-w5-mhG">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="289" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
                                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dK2-5N-n98">
-                                                            <rect key="frame" x="15" y="5" width="33.333333333333336" height="20.333333333333332"/>
+                                                            <rect key="frame" x="15" y="5" width="33.5" height="20.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hu0-Zc-g3w">
-                                                            <rect key="frame" x="15" y="25.333333333333332" width="32.666666666666664" height="14.333333333333334"/>
+                                                            <rect key="frame" x="15" y="25.5" width="33" height="14.5"/>
                                                             <autoresizingMask key="autoresizingMask"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <nil key="textColor"/>
@@ -116,10 +116,10 @@
                                                 </tableViewCellContentView>
                                             </tableViewCell>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="notCell" id="QnQ-8f-Ost">
-                                                <rect key="frame" x="0.0" y="72" width="375" height="44"/>
+                                                <rect key="frame" x="0.0" y="72" width="289" height="44"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QnQ-8f-Ost" id="eSE-rm-5hY">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="289" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
@@ -133,7 +133,7 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(longitude label)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="sAS-Ik-eox">
-                                <rect key="frame" x="122" y="486" width="268" height="21"/>
+                                <rect key="frame" x="122" y="318" width="182" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                                 <nil key="textColor"/>
@@ -178,17 +178,17 @@
             <objects>
                 <tableViewController id="Wjs-kh-Wl7" customClass="HistoryViewController" customModule="MyWeather" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="JB9-cO-ci1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="separatorColor" red="1" green="0.51765681379999995" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <inset key="separatorInset" minX="120" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="HistoryCell" rowHeight="144" id="6hD-xi-spt" customClass="CustomCell" customModule="MyWeather" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="414" height="144"/>
+                                <rect key="frame" x="0.0" y="28" width="320" height="144"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6hD-xi-spt" id="g4B-DQ-UXM">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="143.66666666666666"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="143.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🌚" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="48" translatesAutoresizingMaskIntoConstraints="NO" id="eUG-0M-cPh">
@@ -206,35 +206,35 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(addressLabel)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="c3t-tN-yIw">
-                                            <rect key="frame" x="119" y="8" width="283" height="89"/>
+                                            <rect key="frame" x="119" y="8" width="193" height="89"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="26"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Longitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="NTQ-2I-4im">
-                                            <rect key="frame" x="119" y="109" width="121" height="11"/>
+                                            <rect key="frame" x="119" y="109" width="82" height="11"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Latitude:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="w3M-lc-Wl4">
-                                            <rect key="frame" x="119" y="124" width="121" height="11"/>
+                                            <rect key="frame" x="119" y="124" width="82" height="11"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(longitudeLabel)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="sib-8M-Scm">
-                                            <rect key="frame" x="209" y="109" width="197" height="11"/>
+                                            <rect key="frame" x="209" y="109" width="107" height="11"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(latitudeLabel)" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="zDe-Ty-GiW">
-                                            <rect key="frame" x="206" y="124" width="200" height="11"/>
+                                            <rect key="frame" x="206" y="124" width="110" height="11"/>
                                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" name="CourierNewPSMT" family="Courier New" pointSize="17"/>
                                             <nil key="textColor"/>
@@ -248,6 +248,7 @@
                                     <outlet property="iconLabel" destination="eUG-0M-cPh" id="E3w-eZ-rnJ"/>
                                     <outlet property="latitudeLabel" destination="zDe-Ty-GiW" id="CBo-Te-gs9"/>
                                     <outlet property="longitudeLabel" destination="sib-8M-Scm" id="NmC-q1-NOM"/>
+                                    <segue destination="gcH-eA-bRm" kind="custom" identifier="DeckSegue" customClass="DeckSegue" customModule="DeckTransition" id="e2S-Z7-Uvn"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -261,6 +262,36 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1GO-nj-cwM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2546.25" y="727.81690140845069"/>
+        </scene>
+        <!--Detail History View Controller-->
+        <scene sceneID="KDv-YY-AwL">
+            <objects>
+                <viewController id="gcH-eA-bRm" customClass="DetailHistoryViewController" customModule="MyWeather" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="shY-3J-EA2"/>
+                        <viewControllerLayoutGuide type="bottom" id="dMK-L2-D7w"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="zNp-Yj-97R">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🌚" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="50" translatesAutoresizingMaskIntoConstraints="NO" id="Vj9-Lc-a24">
+                                <rect key="frame" x="70" y="20" width="180" height="180"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="170"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <connections>
+                        <outlet property="iconLabel" destination="Vj9-Lc-a24" id="hYp-QJ-iYL"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zh3-Bg-vRg" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3495.652173913044" y="726.35869565217399"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="PKL-kW-Fl8">

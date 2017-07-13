@@ -15,6 +15,7 @@ class HistoryViewController: UITableViewController {
 
     var weatherRequest = [WeatherRequest]()
     
+    
     lazy var fetchedResultsController:
         NSFetchedResultsController<WeatherRequest> = {
             let fetchRequest = NSFetchRequest<WeatherRequest>()
@@ -78,6 +79,8 @@ class HistoryViewController: UITableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! CustomCell
         
         let history = fetchedResultsController.object(at: indexPath)
+        weatherRequest.append(history)
+        
         cell.configure(for: history)
         
         return cell
@@ -130,6 +133,19 @@ class HistoryViewController: UITableViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DeckSegue" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                let controller = segue.destination as! DetailHistoryViewController
+                controller.iconLabelText = weatherRequest[indexPath.row].icon!
+            }
+        }
+    }
 
 }
 
