@@ -15,37 +15,50 @@ class HistoryViewController: UITableViewController {
 
     var weatherRequest = [WeatherRequest]()
     
+    lazy var fetchedResultsController:
+        NSFetchedResultsController<WeatherRequest> = {
+            let fetchRequest = NSFetchRequest<WeatherRequest>()
+            let entity = WeatherRequest.entity()
+            fetchRequest.entity = entity
+            let sortDescriptor = NSSortDescriptor(key: "dateOfReq", ascending: true)
+            fetchRequest.sortDescriptors = [sortDescriptor]
+            fetchRequest.fetchBatchSize = 20
+            let fetchedResultsController = NSFetchedResultsController(
+                fetchRequest: fetchRequest,
+                managedObjectContext: self.managedObjectContext,
+                sectionNameKeyPath: nil,
+                cacheName: "weatherRequest")
+            
+            fetchedResultsController.delegate = self as! NSFetchedResultsControllerDelegate
+            return fetchedResultsController
+    }()
+    
+    deinit {
+        fetchedResultsController.delegate = nil
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        let fetchRequest = NSFetchRequest<WeatherRequest>()
-        // 2
-        let entity = WeatherRequest.entity()
-        fetchRequest.entity = entity
-        // 3
-        let sortDescriptor = NSSortDescriptor(key: "dateOfReq", ascending: true)
-        fetchRequest.sortDescriptors = [sortDescriptor]
-        do { // 4
-            weatherRequest = try managedObjectContext.fetch(fetchRequest)
-        } catch {
-            fatalCoreDataError(error)
-        }
+
+        performFetch()
+        
         //добавляет кнопку редактирования справа сверху
         navigationItem.rightBarButtonItem = editButtonItem
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     // MARK: -
     
+    func performFetch() {
+        do {
+            try fetchedResultsController.performFetch()
+        } catch {
+            fatalCoreDataError(error)
+        }
+    }
 
     // MARK: - Table view data source
     
@@ -55,22 +68,27 @@ class HistoryViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return weatherRequest.count
+        //return weatherRequest.count
+        let sectionInfo = fetchedResultsController.sections![section]
+        return sectionInfo.numberOfObjects
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! CustomCell
         
-        let weather = weatherRequest[indexPath.row]
-        let currenDate = DateFormatter.localizedString(from: weather.dateOfReq! as Date, dateStyle: .medium, timeStyle: .medium)
+//        let weather = weatherRequest[indexPath.row]
+//        let currenDate = DateFormatter.localizedString(from: weather.dateOfReq! as Date, dateStyle: .medium, timeStyle: .medium)
         
-        cell.addressLabel.text = "\(weather.address!)"
-        cell.dateLabel.text = "\(currenDate)"
-        cell.iconLabel.text = "\(weather.icon!)"
-        cell.latitudeLabel.text = "\(weather.latitude)"
-        cell.longitudeLabel.text = "\(weather.longitude)"
-        //cell.tempLabel.text = "\(Int(weather.tempreture))°"
+        let history = fetchedResultsController.object(at: indexPath)
+        cell.configure(for: history)
+        
+//        cell.addressLabel.text = "\(weather.address!)"
+//        cell.dateLabel.text = "\(currenDate)"
+//        cell.iconLabel.text = "\(weather.icon!)"
+//        cell.latitudeLabel.text = "\(weather.latitude)"
+//        cell.longitudeLabel.text = "\(weather.longitude)"
+//        //cell.tempLabel.text = "\(Int(weather.tempreture))°"
 
         return cell
     }
@@ -121,4 +139,61 @@ class HistoryViewController: UITableViewController {
     }
     */
 
+}
+
+
+extension HistoryViewController: NSFetchedResultsControllerDelegate {
+    func controllerWillChangeContent(_ controller:
+        NSFetchedResultsController<NSFetchRequestResult>) {
+        print("*** controllerWillChangeContent")
+        tableView.beginUpdates()
+    }
+    func controller(
+        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
+        didChange anObject: Any, at indexPath: IndexPath?,
+        for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        switch type {
+        case .insert:
+            print("*** NSFetchedResultsChangeInsert (object)")
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        case .delete:
+            print("*** NSFetchedResultsChangeDelete (object)")
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+        case .update:
+            print("*** NSFetchedResultsChangeUpdate (object)")
+            if let cell = tableView.cellForRow(at: indexPath!)
+                as? CustomCell {
+                let location = controller.object(at: indexPath!) as! WeatherRequest
+                cell.configure(for: location)
+            }
+        case .move:
+            print("*** NSFetchedResultsChangeMove (object)")
+            tableView.deleteRows(at: [indexPath!], with: .fade)
+            tableView.insertRows(at: [newIndexPath!], with: .fade)
+        } }
+    func controller(
+        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
+        didChange sectionInfo: NSFetchedResultsSectionInfo,
+        atSectionIndex sectionIndex: Int,
+        for type: NSFetchedResultsChangeType) {
+        switch type {
+        case .insert:
+            print("*** NSFetchedResultsChangeInsert (section)")
+            tableView.insertSections(IndexSet(integer: sectionIndex),
+                                     with: .fade)
+        case .delete:
+            print("*** NSFetchedResultsChangeDelete (section)")
+            tableView.deleteSections(IndexSet(integer: sectionIndex),
+                                     with: .fade)
+        case .update:
+            print("*** NSFetchedResultsChangeUpdate (section)")
+        case .move:
+            print("*** NSFetchedResultsChangeMove (section)")
+        }
+    }
+    func controllerDidChangeContent(
+        _ controller: NSFetchedResultsController<NSFetchRequestResult>) {
+        print("*** controllerDidChangeContent")
+        tableView.endUpdates()
+    }
 }

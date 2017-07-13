@@ -29,4 +29,23 @@ class CustomCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
+    
+    func configure(for weather: WeatherRequest) {
+        
+        if (weather.address?.isEmpty)! {
+            addressLabel.text = "No Description"
+        } else {
+            addressLabel.text = weather.address!
+        }
+        let currenDate = DateFormatter.localizedString(from: weather.dateOfReq! as Date, dateStyle: .medium, timeStyle: .medium)
+        
+        addressLabel.text = weather.address
+        dateLabel.text = currenDate
+        iconLabel.text = weather.icon!
+        latitudeLabel.text = String(weather.latitude)
+        longitudeLabel.text = String(weather.longitude)
+        //cell.tempLabel.text = "\(Int(weather.tempreture))°"
+
+    }
+
 }
