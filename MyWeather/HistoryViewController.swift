@@ -30,7 +30,7 @@ class HistoryViewController: UITableViewController {
                 sectionNameKeyPath: nil,
                 cacheName: "weatherRequest")
             
-            fetchedResultsController.delegate = self as! NSFetchedResultsControllerDelegate
+            fetchedResultsController.delegate = self
             return fetchedResultsController
     }()
     
@@ -40,6 +40,9 @@ class HistoryViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("\n")
+        print("Second init")
+        print("\n")
 
         performFetch()
         
@@ -68,9 +71,10 @@ class HistoryViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        //return weatherRequest.count
         let sectionInfo = fetchedResultsController.sections![section]
+        //Выдает неправильные значение если запущен дебаг. Если просто открыть приложение, обновляет все как надо
+//        print("\n eto \n")
+//        print(sectionInfo.numberOfObjects)
         return sectionInfo.numberOfObjects
     }
 
@@ -160,6 +164,7 @@ extension HistoryViewController: NSFetchedResultsControllerDelegate {
         _ controller: NSFetchedResultsController<NSFetchRequestResult>,
         didChange anObject: Any, at indexPath: IndexPath?,
         for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+        
         switch type {
         case .insert:
             print("*** NSFetchedResultsChangeInsert (object)")
@@ -184,6 +189,7 @@ extension HistoryViewController: NSFetchedResultsControllerDelegate {
         didChange sectionInfo: NSFetchedResultsSectionInfo,
         atSectionIndex sectionIndex: Int,
         for type: NSFetchedResultsChangeType) {
+        
         switch type {
         case .insert:
             print("*** NSFetchedResultsChangeInsert (section)")

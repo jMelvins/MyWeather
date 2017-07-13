@@ -48,7 +48,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         latitudeLabel.text = "-"
         addressLabel.text = "Wait. We're trying to determine your location."
         iconLabel.text = ""
-        tempretureLabel.text = ""
+        tempretureLabel.text = "--"
         mainWeather.text = ""
         
         if view.viewWithTag(1000) == nil {
@@ -72,8 +72,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     
     func didGetWeather(_ weather: Weather) {
         DispatchQueue.main.async {
-            print("\nJust the weather: ")
-            print(weather)
+//            print("\nJust the weather: ")
+//            print(weather)
             
             self.weatherDesc = weather
             
@@ -83,9 +83,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             //self.determineWeatherIcon(iconID: weather.weatherIconID)
             
             self.tableView.reloadData()
-            
-            //Так как мы получили данные - сохраняем их в CoreData
-            //self.savingDataInCoreData()
             
             //Картинки плохого качества, будем юзать эмоджи
             //self.downloadImageFromServer(iconID: weather.weatherIconID)
@@ -102,9 +99,9 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     func didNotGetWeather(_ error: NSError) {
         DispatchQueue.main.async {
             print("Cant get weather")
-            self.tempretureLabel.text = "Check you internet connection!°"
+            self.tempretureLabel.text = "Check you internet connection!"
             self.mainWeather.text = "Could not determine the weather."
-            self.determineWeatherIcon(iconID: "666")
+            self.iconLabel.text = self.determineWeatherIcon(iconID: "666")
         }
         print("didNotGetWeather error: \(error)")
 
@@ -168,9 +165,9 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
-        print("\nLocation from newLocation: \n")
-        print(newLocation)
-        
+//        print("\nLocation from newLocation: \n")
+//        print(newLocation)
+//        
         spinner.stopAnimating()
         spinner.isHidden = true
         
@@ -237,7 +234,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         tempretureLabel.text = "666°"
         mainWeather.text = "Could not determine the weather."
-        determineWeatherIcon(iconID: "666")
+        iconLabel.text = determineWeatherIcon(iconID: "666")
 
         locationManager.stopUpdatingLocation()
         
