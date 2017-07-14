@@ -155,6 +155,12 @@ class HistoryViewController: UITableViewController {
                 controller.tempreture = toSend.tempreture
                 controller.humidity = toSend.humidity
                 controller.clouds = toSend.clouds
+                controller.mainWeather = toSend.mainWeather!
+                controller.weatherDesc = toSend.weatherDesc!
+                controller.windSpeed = toSend.windSpeed
+                controller.dateOfReq = (toSend.dateOfReq! as? Date)!
+                controller.longitude = toSend.longitude
+                controller.latitude = toSend.latitude
             }
         }
     }

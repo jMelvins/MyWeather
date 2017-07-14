@@ -9,16 +9,20 @@
 import UIKit
 import CoreData
 
-class DetailHistoryViewController: UIViewController {
+class DetailHistoryViewController: UIViewController, UITextViewDelegate {
     
     @IBOutlet weak var iconLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!//°
     @IBOutlet weak var humidityLabel: UILabel!//💧
     @IBOutlet weak var cloudLabel: UILabel!//☁️
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var dateOfReqLabel: UILabel!
+    @IBOutlet weak var mWwDLabel: UILabel!
+    @IBOutlet weak var coordinatesLabel: UILabel!
     
     var address = String()
     var clouds = Int()
-    var dateOfReq = NSDate()
+    var dateOfReq = Date()
     var humidity = Int()
     var icon = String()
     var latitude = Double()
@@ -28,10 +32,14 @@ class DetailHistoryViewController: UIViewController {
     var weatherDesc = String()
     var windSpeed = Double()
     
+    let textView = UITextView()
+    
     //var iconLabelText = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = UIColor(red: 168/255.0, green: 218/255.0,
+                                       blue: 220/255.0, alpha: 1.0)
         
         print("\n INIT DETAIL \n address: \(address) \n \(latitude)")
         
@@ -43,7 +51,15 @@ class DetailHistoryViewController: UIViewController {
         }
         humidityLabel.text = "\(humidity)%💧"
         cloudLabel.text = "\(clouds)%☁️"
-        // Do any additional setup after loading the view.
+        addressLabel.text = "Your address: \(address)."
+        let currenDate = DateFormatter.localizedString(from: dateOfReq, dateStyle: .medium, timeStyle: .medium)
+        dateOfReqLabel.text = "The weather for \(currenDate)."
+        mWwDLabel.text = "\(mainWeather): \(weatherDesc). Wind speed today: \(windSpeed) m/s."
+        var coordinates = ""
+        coordinates.add(text: String(longitude))
+        coordinates.add(text: String(latitude), separatedBy: ", ")
+        coordinatesLabel.text = "With coordinates: \n\(coordinates)"
+
     }
 
     override func didReceiveMemoryWarning() {
