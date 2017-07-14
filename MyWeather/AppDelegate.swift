@@ -17,6 +17,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        customizeAppearance()
+        
         print(applicationDocumentsDirectory)
         
         let tabBarController = window!.rootViewController as! UITabBarController
@@ -30,6 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 as! HistoryViewController
             historyViewController.managedObjectContext = managedObjectContext
             let _ = historyViewController.view
+
             
         }
         
@@ -127,6 +130,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         } else {
             return rootViewController
         }
+    }
+    
+    func customizeAppearance() {
+        UINavigationBar.appearance().barTintColor = UIColor(red: 29/255.0, green: 53/255.0,
+                                                            blue: 87/255.0, alpha: 1.0)
+        UINavigationBar.appearance().titleTextAttributes = [
+            NSForegroundColorAttributeName: UIColor.white ]
+        UITabBar.appearance().barTintColor = UIColor(red: 29/255.0, green: 53/255.0,
+                                                     blue: 87/255.0, alpha: 1.0)
+        let tintColor = UIColor(red: 230/255.0, green: 57/255.0,
+                                blue: 70/255.0, alpha: 1.0)
+        UITabBar.appearance().tintColor = tintColor
     }
 }
 

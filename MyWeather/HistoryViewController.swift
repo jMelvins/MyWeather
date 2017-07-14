@@ -40,9 +40,11 @@ class HistoryViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print("\n")
-        print("Second init")
-        print("\n")
+        tableView.backgroundColor = UIColor(red: 69/255.0, green: 123/255.0,
+                                            blue: 157/255.0, alpha: 1.0)
+        tableView.separatorColor = UIColor(red: 230/255.0, green: 57/255.0,
+                                           blue: 70/255.0, alpha: 1.0)
+        tableView.indicatorStyle = .white
 
         performFetch()
         
@@ -147,7 +149,12 @@ class HistoryViewController: UITableViewController {
         if segue.identifier == "DeckSegue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let controller = segue.destination as! DetailHistoryViewController
-                controller.iconLabelText = weatherRequest[indexPath.row].icon!
+                let toSend = weatherRequest[indexPath.row]
+                controller.icon = toSend.icon!
+                controller.address = toSend.address!
+                controller.tempreture = toSend.tempreture
+                controller.humidity = toSend.humidity
+                controller.clouds = toSend.clouds
             }
         }
     }

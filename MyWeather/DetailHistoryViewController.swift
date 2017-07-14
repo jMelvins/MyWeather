@@ -7,18 +7,42 @@
 //
 
 import UIKit
+import CoreData
 
 class DetailHistoryViewController: UIViewController {
     
     @IBOutlet weak var iconLabel: UILabel!
+    @IBOutlet weak var tempLabel: UILabel!//°
+    @IBOutlet weak var humidityLabel: UILabel!//💧
+    @IBOutlet weak var cloudLabel: UILabel!//☁️
     
-    var iconLabelText = String()
+    var address = String()
+    var clouds = Int()
+    var dateOfReq = NSDate()
+    var humidity = Int()
+    var icon = String()
+    var latitude = Double()
+    var longitude = Double()
+    var mainWeather = String()
+    var tempreture = Double()
+    var weatherDesc = String()
+    var windSpeed = Double()
+    
+    //var iconLabelText = String()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        print(iconLabelText)
-        iconLabel.text = iconLabelText
+        
+        print("\n INIT DETAIL \n address: \(address) \n \(latitude)")
+        
+        iconLabel.text = icon
+        if tempreture < 10{
+            tempLabel.text = "0\(Int(tempreture))°"
+        }else {
+            tempLabel.text = "\(Int(tempreture))°"
+        }
+        humidityLabel.text = "\(humidity)%💧"
+        cloudLabel.text = "\(clouds)%☁️"
         // Do any additional setup after loading the view.
     }
 

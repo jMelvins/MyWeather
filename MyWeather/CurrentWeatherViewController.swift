@@ -43,12 +43,17 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         super.viewDidLoad()
         weatherGetter = WeatherGetter(delegate: self)
         
+        tableView.backgroundColor = UIColor(red: 69/255.0, green: 123/255.0,
+                                     blue: 157/255.0, alpha: 1.0)
+        tableView.separatorColor = UIColor(red: 230/255.0, green: 57/255.0,
+                                    blue: 70/255.0, alpha: 1.0)
+        tableView.indicatorStyle = .white
         
         longitudeLabel.text = "-"
         latitudeLabel.text = "-"
         addressLabel.text = "Wait. We're trying to determine your location."
-        iconLabel.text = ""
-        tempretureLabel.text = "--"
+        iconLabel.text = "☄️"
+        tempretureLabel.text = "--°"
         mainWeather.text = ""
         
         if view.viewWithTag(1000) == nil {
@@ -341,7 +346,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             cell.textLabel?.text = "Humidity 💧"
             
             if let weatherDesc = weatherDesc{
-                cell.detailTextLabel?.text = "\(weatherDesc.humidity)"
+                cell.detailTextLabel?.text = "\(weatherDesc.humidity)%"
             }else {
                 cell.detailTextLabel?.text = "Could not define it."
             }
@@ -367,13 +372,28 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                 cell.detailTextLabel?.text = "Could not define it."
             }
             
-        }
-        
-        
-        
+        }        
         return cell
     }
     
+    func tableView(_ tableView: UITableView,
+                            willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        cell.backgroundColor = UIColor(red: 69/255.0, green: 123/255.0,
+                                               blue: 157/255.0, alpha: 1.0)
+        
+        if let textLabel = cell.textLabel {
+            textLabel.textColor = UIColor(red: 241/255.0, green: 250/255.0,
+                                          blue: 238/255.0, alpha: 1.0)
+            textLabel.highlightedTextColor = textLabel.textColor
+        }
+        if let detailLabel = cell.detailTextLabel{
+            detailLabel.textColor = UIColor(red: 241/255.0, green: 250/255.0,
+                                          blue: 238/255.0, alpha: 1.0)
+            detailLabel.highlightedTextColor = detailLabel.textColor
+        }
+        
+    }
     
     //MARK: -
     //Не обращайте внимание, это всего лишь костыль
