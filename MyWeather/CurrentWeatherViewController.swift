@@ -22,10 +22,12 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     @IBOutlet weak var tempretureLabel: UILabel!
     @IBOutlet weak var mainWeather: UILabel!
     
-    
+    //Хранит данные для передачи в CoreData
     var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
     let locationManager = CLLocationManager()
+    //Хранит в себе прошлые запросы в CLLocation
     var location: CLLocation? = nil
+    //Храним здесь данные для передачи в CoreData.
     var weatherDesc: Weather?
     
     var weatherGetter: WeatherGetter!
@@ -43,12 +45,14 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         super.viewDidLoad()
         weatherGetter = WeatherGetter(delegate: self)
         
+        //Красим tableView
         tableView.backgroundColor = UIColor(red: 69/255.0, green: 123/255.0,
                                      blue: 157/255.0, alpha: 1.0)
         tableView.separatorColor = UIColor(red: 230/255.0, green: 57/255.0,
                                     blue: 70/255.0, alpha: 1.0)
         tableView.indicatorStyle = .white
         
+        //Задаем дефолтные значения
         longitudeLabel.text = "-"
         latitudeLabel.text = "-"
         addressLabel.text = "Wait. We're trying to determine your location."
@@ -56,6 +60,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         tempretureLabel.text = "--°"
         mainWeather.text = ""
         
+        //Добвляем спиннер
         if view.viewWithTag(1000) == nil {
             spinner.center = addressLabel.center
             spinner.center.y += spinner.bounds.size.height/2 + 20
@@ -64,7 +69,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             view.addSubview(spinner)
         }
         
-        //determineLocation.getLocation(locationManager: locationManager, delegate: self)
+        //Начинаем искать сразуже при входе
         getLocation()
     }
 
@@ -111,9 +116,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         print("didNotGetWeather error: \(error)")
 
     }
-    
-    
-    // MARK: - CLLocationManagerDelegate methods
     
     // MARK: - CLLocationManagerDelegate and related methods
     
@@ -189,6 +191,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         var distance = CLLocationDistance(Double.greatestFiniteMagnitude)
         if let location = location {
             //print("\nDistance: ")
+            //Считаем дистанцию между прошлым запросом и нынешним
             distance = newLocation.distance(from: location)
             locationManager.stopUpdatingLocation()
 //            print(distance)
@@ -209,6 +212,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             location = newLocation
             locationManager.stopUpdatingLocation()
             
+            //Если location получило/обновило значение, то обновляем tableView
+            //т.к. первая ячейка - ячейка даты полученной именно из CLLocation
             DispatchQueue.main.async {
                 self.tableView.reloadData()
             }
@@ -315,6 +320,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         return 5
     }
 
+    //Привет, огромный костыль
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
 
@@ -387,6 +393,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                                           blue: 238/255.0, alpha: 1.0)
             textLabel.highlightedTextColor = textLabel.textColor
         }
+        
         if let detailLabel = cell.detailTextLabel{
             detailLabel.textColor = UIColor(red: 241/255.0, green: 250/255.0,
                                           blue: 238/255.0, alpha: 1.0)
@@ -479,7 +486,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         //let weatherRequest: WeatherRequest
         let weatherRequest = WeatherRequest(context: managedObjectContext!)
-        //let iconID = determineWeatherIcon(iconID: (weatherDesc?.weatherIconID)!)
         
         weatherRequest.address = addressFromPlacemark
         weatherRequest.latitude = coordinate.latitude
@@ -492,10 +498,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         weatherRequest.humidity = (weatherDesc?.humidity)!
         weatherRequest.windSpeed = (weatherDesc?.windSpeed)!
         weatherRequest.clouds = (weatherDesc?.cloudCover)!
-        
-//        print("Saving data")
-//        print(weatherRequest.address!)
-//        print(weatherRequest.icon!)
         
         do {
             try managedObjectContext?.save()
