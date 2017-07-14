@@ -13,6 +13,8 @@ class HistoryViewController: UITableViewController {
     
     var managedObjectContext: NSManagedObjectContext!
 
+    //Массив, хранящий в себе данные для каждой ячейки
+    //Служит для передачи даных в следующий вью
     var weatherRequest = [WeatherRequest]()
     
     
@@ -46,6 +48,7 @@ class HistoryViewController: UITableViewController {
                                            blue: 70/255.0, alpha: 1.0)
         tableView.indicatorStyle = .white
 
+        //Загружаем данные из кор дата сразу же после загрузки вью
         performFetch()
         
         //добавляет кнопку редактирования справа сверху
@@ -85,9 +88,11 @@ class HistoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! CustomCell
         
+        //Шде, если не здесь заполнить массив
         let history = fetchedResultsController.object(at: indexPath)
         weatherRequest.append(history)
         
+        //Т.к ячейка кастомная, можно вынести методы по ее заполнению в отдельный класс
         cell.configure(for: history)
         
         return cell
@@ -145,6 +150,7 @@ class HistoryViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
+    //Передаем все имеющиеся данные в DetailHistoryVC
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "DeckSegue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
@@ -168,6 +174,7 @@ class HistoryViewController: UITableViewController {
 }
 
 
+//Описание слушателя кор даты. Реагирует на любые изменения в ней, следовательно перересовывает tableView
 extension HistoryViewController: NSFetchedResultsControllerDelegate {
     func controllerWillChangeContent(_ controller:
         NSFetchedResultsController<NSFetchRequestResult>) {

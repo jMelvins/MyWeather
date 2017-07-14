@@ -9,6 +9,7 @@
 import Foundation
 import CoreLocation
 
+//Использовалась в ранней версии 
 class DetermineLocation {
     
     func getLocation(locationManager: CLLocationManager, delegate: CLLocationManagerDelegate) {

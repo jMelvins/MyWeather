@@ -133,12 +133,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func customizeAppearance() {
-        UINavigationBar.appearance().barTintColor = UIColor(red: 29/255.0, green: 53/255.0,
-                                                            blue: 87/255.0, alpha: 1.0)
+        UINavigationBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 48/255.0,
+                                                            blue: 80/255.0, alpha: 1.0)
         UINavigationBar.appearance().titleTextAttributes = [
             NSForegroundColorAttributeName: UIColor.white ]
-        UITabBar.appearance().barTintColor = UIColor(red: 29/255.0, green: 53/255.0,
-                                                     blue: 87/255.0, alpha: 1.0)
+        UITabBar.appearance().barTintColor = UIColor(red: 0/255.0, green: 48/255.0,
+                                                     blue: 80/255.0, alpha: 1.0)
         let tintColor = UIColor(red: 230/255.0, green: 57/255.0,
                                 blue: 70/255.0, alpha: 1.0)
         UITabBar.appearance().tintColor = tintColor
