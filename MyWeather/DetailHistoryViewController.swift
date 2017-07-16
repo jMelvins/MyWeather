@@ -41,8 +41,6 @@ class DetailHistoryViewController: UIViewController, UITextViewDelegate {
         view.backgroundColor = UIColor(red: 168/255.0, green: 218/255.0,
                                        blue: 220/255.0, alpha: 1.0)
         
-        print("\n INIT DETAIL \n address: \(address) \n \(latitude)")
-        
         iconLabel.text = icon
         if tempreture < 10{
             tempLabel.text = "0\(Int(tempreture))°"
@@ -51,14 +49,17 @@ class DetailHistoryViewController: UIViewController, UITextViewDelegate {
         }
         humidityLabel.text = "\(humidity)%💧"
         cloudLabel.text = "\(clouds)%☁️"
-        addressLabel.text = "Your address: \(address)."
+        
         let currenDate = DateFormatter.localizedString(from: dateOfReq, dateStyle: .medium, timeStyle: .medium)
         dateOfReqLabel.text = "The weather for \(currenDate)."
-        mWwDLabel.text = "\(mainWeather): \(weatherDesc). Wind speed today: \(windSpeed) m/s."
+        mWwDLabel.text = "\(mainWeather): \(weatherDesc). Wind speed today: \(windSpeed) m/s.\n"
+        
         var coordinates = ""
         coordinates.add(text: String(longitude))
         coordinates.add(text: String(latitude), separatedBy: ", ")
-        coordinatesLabel.text = "With coordinates: \n\(coordinates)"
+        //coordinatesLabel.text = "With coordinates: \n\(coordinates)"
+        coordinatesLabel.text = ""
+        addressLabel.text = "Your address: \(address).\nWith coordinates: \n\(coordinates)"
 
     }
 
@@ -70,7 +71,7 @@ class DetailHistoryViewController: UIViewController, UITextViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         print("DISAPPEAR")
     }
-
+    
     /*
     // MARK: - Navigation
 

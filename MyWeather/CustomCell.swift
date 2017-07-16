@@ -59,8 +59,8 @@ class CustomCell: UITableViewCell {
         addressLabel.text = weather.address
         dateLabel.text = currenDate
         iconLabel.text = weather.icon!
-        latitudeLabel.text = String(weather.latitude)
-        longitudeLabel.text = String(weather.longitude)
+        latitudeLabel.text = "Latitude: \(weather.latitude)"
+        longitudeLabel.text = "Longitude: \(weather.longitude)"
         //cell.tempLabel.text = "\(Int(weather.tempreture))°"
 
     }
