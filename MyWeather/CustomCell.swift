@@ -21,8 +21,10 @@ class CustomCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        backgroundColor = UIColor(red: 69/255.0, green: 123/255.0,
-                                         blue: 157/255.0, alpha: 1.0)
+//        backgroundColor = UIColor(red: 69/255.0, green: 123/255.0,
+//                                         blue: 157/255.0, alpha: 1.0)
+        backgroundColor = UIColor.clear
+        
 //        tempLabel.textColor = UIColor(red: 241/255.0, green: 250/255.0,
 //                                            blue: 238/255.0, alpha: 1.0)
 //        addressLabel.textColor = UIColor(red: 241/255.0, green: 250/255.0,
@@ -35,8 +37,8 @@ class CustomCell: UITableViewCell {
 //                                                 blue: 220/255.0, alpha: 1.0)
         
         let selectionView = UIView(frame: CGRect.zero)
-        selectionView.backgroundColor = UIColor(red: 168/255.0, green: 218/255.0,
-                                                blue: 220/255.0, alpha: 1)
+        selectionView.backgroundColor = UIColor(red: 0/255.0, green: 155/255.0,
+                                                blue: 255/255.0, alpha: 0.2)
         selectedBackgroundView = selectionView
     }
 
@@ -62,7 +64,7 @@ class CustomCell: UITableViewCell {
         latitudeLabel.text = "Latitude: \(weather.latitude)"
         longitudeLabel.text = "Longitude: \(weather.longitude)"
         //cell.tempLabel.text = "\(Int(weather.tempreture))°"
-
+        
     }
 
 }

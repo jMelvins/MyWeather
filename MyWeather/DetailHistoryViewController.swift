@@ -38,8 +38,7 @@ class DetailHistoryViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = UIColor(red: 168/255.0, green: 218/255.0,
-                                       blue: 220/255.0, alpha: 1.0)
+        //view.backgroundColor = UIColor(red: 168/255.0, green: 218/255.0, blue: 220/255.0, alpha: 1.0)
         
         iconLabel.text = icon
         if tempreture < 10{

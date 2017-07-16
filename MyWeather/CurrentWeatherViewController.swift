@@ -9,6 +9,7 @@
 import UIKit
 import CoreLocation
 import CoreData
+import QuartzCore
 
 class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate, WeatherGetterDelegate, UITableViewDataSource, UITableViewDelegate {
 
@@ -46,8 +47,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         weatherGetter = WeatherGetter(delegate: self)
         
         //Красим tableView
-        tableView.backgroundColor = UIColor(red: 69/255.0, green: 123/255.0,
-                                     blue: 157/255.0, alpha: 1.0)
+        //tableView.backgroundColor = UIColor(red: 69/255.0, green: 123/255.0, blue: 157/255.0, alpha: 1.0)
+        tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = UIColor(red: 230/255.0, green: 57/255.0,
                                     blue: 70/255.0, alpha: 1.0)
         tableView.indicatorStyle = .white
@@ -71,12 +72,32 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         //Начинаем искать сразуже при входе
         getLocation()
+        
+        
+        //rotator()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
 
+    //CoreAnimation
+    
+    
+//    func rotator(){
+//        
+//        let logoRotator = CABasicAnimation(keyPath: "transform.rotation.z")
+//        
+//        logoRotator.isRemovedOnCompletion = false
+//        logoRotator.fillMode = kCAFillModeForwards
+//        logoRotator.duration = 100.0
+//        logoRotator.fromValue = 0.0
+//        logoRotator.toValue = 20 * Double.pi
+//        logoRotator.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
+//        
+//        iconLabel.layer.add(logoRotator, forKey: "logoRotator")
+//        
+//    }
     
     // MARK: - WeatherGetterDelegate
     
@@ -385,8 +406,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     func tableView(_ tableView: UITableView,
                             willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         
-        cell.backgroundColor = UIColor(red: 69/255.0, green: 123/255.0,
-                                               blue: 157/255.0, alpha: 1.0)
+        //cell.backgroundColor = UIColor(red: 69/255.0, green: 123/255.0, blue: 157/255.0, alpha: 1.0)
+        cell.backgroundColor = UIColor.clear
         
         if let textLabel = cell.textLabel {
             textLabel.textColor = UIColor(red: 241/255.0, green: 250/255.0,
