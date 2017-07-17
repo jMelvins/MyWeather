@@ -69,6 +69,10 @@ class HistoryViewController: UITableViewController {
         super.didReceiveMemoryWarning()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return UIStatusBarStyle.lightContent
+    }
+    
     // MARK: -
     
     func performFetch() {

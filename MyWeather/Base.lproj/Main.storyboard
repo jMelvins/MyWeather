@@ -171,6 +171,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Weather" image="Weather" id="kHI-qR-CXh"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="addressLabel" destination="L8p-30-uKd" id="jjy-UR-kC7"/>
                         <outlet property="iconLabel" destination="L7T-MR-QFJ" id="oMR-te-b73"/>
@@ -200,7 +201,7 @@
                                 <rect key="frame" x="0.0" y="28" width="320" height="144"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6hD-xi-spt" id="g4B-DQ-UXM">
-                                    <rect key="frame" x="0.0" y="0.0" width="320" height="143.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="320" height="144"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="🌚" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="48" translatesAutoresizingMaskIntoConstraints="NO" id="eUG-0M-cPh">
@@ -261,7 +262,7 @@
                                     <outlet property="iconLabel" destination="eUG-0M-cPh" id="E3w-eZ-rnJ"/>
                                     <outlet property="latitudeLabel" destination="zDe-Ty-GiW" id="CBo-Te-gs9"/>
                                     <outlet property="longitudeLabel" destination="sib-8M-Scm" id="NmC-q1-NOM"/>
-                                    <segue destination="Ocv-jC-4W2" kind="custom" identifier="DeckSegue" customClass="DeckSegue" customModule="DeckTransition" id="acq-FH-Xkl"/>
+                                    <segue destination="Ocv-jC-4W2" kind="custom" identifier="DeckSegue" customClass="DeckSegue" customModule="MyWeather" id="acq-FH-Xkl"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -271,6 +272,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="History" id="DTb-CV-fKG"/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1GO-nj-cwM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -346,13 +348,6 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="(coordinates)" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" minimumFontSize="7" translatesAutoresizingMaskIntoConstraints="NO" id="a74-g4-bbn">
-                                        <rect key="frame" x="14" y="404" width="304" height="52"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" red="0.6588235294117647" green="0.85490196078431369" blue="0.86274509803921573" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YVE-FA-OYd" customClass="RoundView" customModule="MyWeather" customModuleProvider="target">
                                         <rect key="frame" x="46" y="189" width="240" height="2"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -404,10 +399,10 @@
                             <constraint firstAttribute="trailing" secondItem="WWn-Ji-yzQ" secondAttribute="trailing" id="YIe-cx-Vq7"/>
                         </constraints>
                     </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
                     <connections>
                         <outlet property="addressLabel" destination="LD1-59-vek" id="d0c-50-o0V"/>
                         <outlet property="cloudLabel" destination="tj0-hG-cgT" id="26t-Ue-eOS"/>
-                        <outlet property="coordinatesLabel" destination="a74-g4-bbn" id="WGV-Z5-m7b"/>
                         <outlet property="dateOfReqLabel" destination="Zfd-iE-LfI" id="ZDV-Ho-Rbt"/>
                         <outlet property="humidityLabel" destination="ImW-fS-jNQ" id="Rmg-97-68l"/>
                         <outlet property="iconLabel" destination="jOd-Wj-VBP" id="J5r-oz-jxG"/>
@@ -423,6 +418,7 @@
         <scene sceneID="PKL-kW-Fl8">
             <objects>
                 <tabBarController id="xIN-cX-CiF" sceneMemberID="viewController">
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Ach-md-QYa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -443,6 +439,7 @@
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="qg2-Dv-KNQ" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="History" image="Locations" id="LLh-vz-Azw"/>
                     <toolbarItems/>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="IIi-DG-vQ8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

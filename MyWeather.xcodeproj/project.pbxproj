@@ -29,6 +29,7 @@
 		A01CD4EC1F17F6E80024519C /* DetailHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4EB1F17F6E80024519C /* DetailHistoryViewController.swift */; };
 		A01CD4F21F1833990024519C /* RoundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CD4F11F1833990024519C /* RoundView.swift */; };
 		A05727AA1F1C2E2600578197 /* RotateAnimation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05727A91F1C2E2500578197 /* RotateAnimation.swift */; };
+		A05727B01F1C3E5A00578197 /* MyNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A05727AF1F1C3E5A00578197 /* MyNavigationController.swift */; };
 		F8B231C4E3C541A0222677F2 /* Pods_MyWeatherTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 25718076AA31B9C4946292B8 /* Pods_MyWeatherTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -83,6 +84,7 @@
 		A01CD4EB1F17F6E80024519C /* DetailHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailHistoryViewController.swift; sourceTree = "<group>"; };
 		A01CD4F11F1833990024519C /* RoundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundView.swift; sourceTree = "<group>"; };
 		A05727A91F1C2E2500578197 /* RotateAnimation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RotateAnimation.swift; sourceTree = "<group>"; };
+		A05727AF1F1C3E5A00578197 /* MyNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyNavigationController.swift; sourceTree = "<group>"; };
 		C393DA912F0948367EB90CAD /* Pods-MyWeather.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyWeather.release.xcconfig"; path = "Pods/Target Support Files/Pods-MyWeather/Pods-MyWeather.release.xcconfig"; sourceTree = "<group>"; };
 		FCA2F2BD37321C5380B47BF4 /* Pods-MyWeatherUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MyWeatherUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MyWeatherUITests/Pods-MyWeatherUITests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -150,6 +152,7 @@
 				A01CD4A91F16598D0024519C /* DetermineLocation.swift */,
 				A01CD4BD1F17010E0024519C /* Functions.swift */,
 				A01CD4B71F16EE0E0024519C /* HistoryViewController.swift */,
+				A05727AF1F1C3E5A00578197 /* MyNavigationController.swift */,
 				A05727A91F1C2E2500578197 /* RotateAnimation.swift */,
 				A01CD4F11F1833990024519C /* RoundView.swift */,
 				A01CD4B11F1666600024519C /* String+AddText.swift */,
@@ -487,6 +490,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A01CD4C91F17A72C0024519C /* WeatherRequest+CoreDataClass.swift in Sources */,
+				A05727B01F1C3E5A00578197 /* MyNavigationController.swift in Sources */,
 				A01CD4F21F1833990024519C /* RoundView.swift in Sources */,
 				A01CD4AA1F16598D0024519C /* DetermineLocation.swift in Sources */,
 				A01CD4CA1F17A72C0024519C /* WeatherRequest+CoreDataProperties.swift in Sources */,

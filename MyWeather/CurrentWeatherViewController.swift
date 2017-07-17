@@ -77,6 +77,10 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         super.didReceiveMemoryWarning()
     }
     
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return UIStatusBarStyle.lightContent
+    }
+    
     // MARK: - WeatherGetterDelegate
     
     func didGetWeather(_ weather: Weather) {

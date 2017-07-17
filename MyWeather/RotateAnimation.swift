@@ -11,7 +11,7 @@ import UIKit
 
 class RotateAnimation {
     
-    func rotator(for viewForLabel: UILabel){
+    func rotator(for viewForRotate: UIView){
 
         let logoRotator = CABasicAnimation(keyPath: "transform.rotation.z")
 
@@ -22,7 +22,7 @@ class RotateAnimation {
         logoRotator.toValue = 20 * Double.pi
         logoRotator.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
 
-        viewForLabel.layer.add(logoRotator, forKey: "logoRotator")
+        viewForRotate.layer.add(logoRotator, forKey: "logoRotator")
 
     }
 

@@ -18,7 +18,6 @@ class DetailHistoryViewController: UIViewController, UITextViewDelegate {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var dateOfReqLabel: UILabel!
     @IBOutlet weak var mWwDLabel: UILabel!
-    @IBOutlet weak var coordinatesLabel: UILabel!
     
     var address = String()
     var clouds = Int()
@@ -56,8 +55,6 @@ class DetailHistoryViewController: UIViewController, UITextViewDelegate {
         var coordinates = ""
         coordinates.add(text: String(longitude))
         coordinates.add(text: String(latitude), separatedBy: ", ")
-        //coordinatesLabel.text = "With coordinates: \n\(coordinates)"
-        coordinatesLabel.text = ""
         addressLabel.text = "Your address: \(address).\nWith coordinates: \n\(coordinates)"
 
     }
@@ -70,6 +67,11 @@ class DetailHistoryViewController: UIViewController, UITextViewDelegate {
     override func viewWillDisappear(_ animated: Bool) {
         print("DISAPPEAR")
     }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.default
+    }
+
     
     /*
     // MARK: - Navigation
