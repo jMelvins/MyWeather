@@ -98,7 +98,7 @@ class HistoryViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! CustomCell
         
-        //Шде, если не здесь заполнить массив
+        //Где, если не здесь заполнить массив
         let history = fetchedResultsController.object(at: indexPath)
         weatherRequest.append(history)
         
@@ -114,6 +114,8 @@ class HistoryViewController: UITableViewController {
         if editingStyle == .delete {
             let history = fetchedResultsController.object(at: indexPath)
             managedObjectContext.delete(history)
+            print(indexPath)
+            weatherRequest.remove(at: indexPath.row)
             do {
                 try managedObjectContext.save()
             } catch {
@@ -132,7 +134,6 @@ class HistoryViewController: UITableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let controller = segue.destination as! DetailHistoryViewController
                 let toSend = weatherRequest[indexPath.row]
-                print(toSend.icon)
                 controller.icon = toSend.icon!
                 controller.address = toSend.address!
                 controller.tempreture = toSend.tempreture
