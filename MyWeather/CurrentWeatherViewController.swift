@@ -9,7 +9,6 @@
 import UIKit
 import CoreLocation
 import CoreData
-import QuartzCore
 
 class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate, WeatherGetterDelegate, UITableViewDataSource, UITableViewDelegate {
 
@@ -72,32 +71,11 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         //Начинаем искать сразуже при входе
         getLocation()
-        
-        
-        //rotator()
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-
-    //CoreAnimation
-    
-    
-//    func rotator(){
-//        
-//        let logoRotator = CABasicAnimation(keyPath: "transform.rotation.z")
-//        
-//        logoRotator.isRemovedOnCompletion = false
-//        logoRotator.fillMode = kCAFillModeForwards
-//        logoRotator.duration = 100.0
-//        logoRotator.fromValue = 0.0
-//        logoRotator.toValue = 20 * Double.pi
-//        logoRotator.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn)
-//        
-//        iconLabel.layer.add(logoRotator, forKey: "logoRotator")
-//        
-//    }
     
     // MARK: - WeatherGetterDelegate
     
@@ -145,8 +123,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             showSimpleAlert(
                 title: "Please turn on location services",
                 message: "This app needs location services in order to report the weather " +
-                    "for your current location.\n" +
-                "Go to Settings → Privacy → Location Services and turn location services on."
+                         "for your current location.\n" +
+                         "Go to Settings → Privacy → Location Services and turn location services on."
             )
             return
         }
@@ -155,6 +133,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         guard authStatus == .authorizedWhenInUse else {
             switch authStatus {
             case .denied, .restricted:
+                spinner.stopAnimating()
+                spinner.isHidden = true
                 addressLabel.text = "Location services for this app are disabled"
                 let alert = UIAlertController(
                     title: "Location services for this app are disabled",
@@ -175,9 +155,14 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                 return
                 
             case .notDetermined:
+                spinner.stopAnimating()
+                spinner.isHidden = true
+                addressLabel.text = "Location services for this app are disabled"
                 locationManager.requestWhenInUseAuthorization()
                 
             default:
+                spinner.stopAnimating()
+                spinner.isHidden = true
                 print("Oops! Shouldn't have come this far.")
             }
             
@@ -215,19 +200,19 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             //Считаем дистанцию между прошлым запросом и нынешним
             distance = newLocation.distance(from: location)
             locationManager.stopUpdatingLocation()
-//            print(distance)
-//            print("\nLoc acc: ")
-//            print(location.horizontalAccuracy)
-//            print("\nNewLoca: ")
-//            print(newLocation.horizontalAccuracy)
         }
         
+        //Если позиция изменилась, то перестаем обновлять
         guard distance > 0 else{
             locationManager.stopUpdatingLocation()
             return
         }
 
-        
+        //Если следующий запрос близок к прошлому, то ничего не делаем
+        //1000 потому что аккуратность с которой ищет LocationManager = 1km
+        if location != nil && distance < 1000{
+            return
+        }
         
         if location == nil || distance > 5 {
             location = newLocation
@@ -242,8 +227,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             //let myLocation : CLLocationCoordinate2D = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
             coordinate = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
             
-            longitudeLabel.text = "\(coordinate.longitude)"
-            latitudeLabel.text = "\(coordinate.latitude)"
+            longitudeLabel.text = String(format: "%0.8f", coordinate.longitude)
+            latitudeLabel.text = String(format: "%0.8f", coordinate.latitude)
             
             weatherGetter.getWeather(lon: coordinate.longitude, lat: coordinate.latitude)
             getReversedGeocodeLocation(from: newLocation)

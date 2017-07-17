@@ -58,12 +58,11 @@ class HistoryViewController: UITableViewController {
         tableView.separatorColor = UIColor(red: 230/255.0, green: 57/255.0,
                                            blue: 70/255.0, alpha: 1.0)
         tableView.indicatorStyle = .white
+        
+        navigationItem.rightBarButtonItem = editButtonItem
 
         //Загружаем данные из кор дата сразу же после загрузки вью
         performFetch()
-        
-        //добавляет кнопку редактирования справа сверху
-        navigationItem.rightBarButtonItem = editButtonItem
     }
 
     override func didReceiveMemoryWarning() {
@@ -88,10 +87,6 @@ class HistoryViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = fetchedResultsController.sections![section]
-        //Выдает неправильные значение если запущен дебаг. Если просто открыть приложение, обновляет все как надо
-        //Выдавало не те значения из за того что мы неправильно изменяли кор дату
-//        print("\n eto \n")
-//        print(sectionInfo.numberOfObjects)
         return sectionInfo.numberOfObjects
     }
 
@@ -133,6 +128,7 @@ class HistoryViewController: UITableViewController {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let controller = segue.destination as! DetailHistoryViewController
                 let toSend = weatherRequest[indexPath.row]
+                print(toSend.icon)
                 controller.icon = toSend.icon!
                 controller.address = toSend.address!
                 controller.tempreture = toSend.tempreture
@@ -141,7 +137,7 @@ class HistoryViewController: UITableViewController {
                 controller.mainWeather = toSend.mainWeather!
                 controller.weatherDesc = toSend.weatherDesc!
                 controller.windSpeed = toSend.windSpeed
-                controller.dateOfReq = (toSend.dateOfReq! as? Date)!
+                controller.dateOfReq = toSend.dateOfReq! as Date
                 controller.longitude = toSend.longitude
                 controller.latitude = toSend.latitude
             }
@@ -158,10 +154,9 @@ extension HistoryViewController: NSFetchedResultsControllerDelegate {
         print("*** controllerWillChangeContent")
         tableView.beginUpdates()
     }
-    func controller(
-        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
-        didChange anObject: Any, at indexPath: IndexPath?,
-        for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange anObject: Any, at indexPath: IndexPath?,
+                    for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         switch type {
         case .insert:
@@ -174,29 +169,26 @@ extension HistoryViewController: NSFetchedResultsControllerDelegate {
             print("*** NSFetchedResultsChangeUpdate (object)")
             if let cell = tableView.cellForRow(at: indexPath!)
                 as? CustomCell {
-                let location = controller.object(at: indexPath!) as! WeatherRequest
-                cell.configure(for: location)
+                let history = controller.object(at: indexPath!) as! WeatherRequest
+                cell.configure(for: history)
             }
         case .move:
             print("*** NSFetchedResultsChangeMove (object)")
             tableView.deleteRows(at: [indexPath!], with: .fade)
             tableView.insertRows(at: [newIndexPath!], with: .fade)
         } }
-    func controller(
-        _ controller: NSFetchedResultsController<NSFetchRequestResult>,
-        didChange sectionInfo: NSFetchedResultsSectionInfo,
-        atSectionIndex sectionIndex: Int,
-        for type: NSFetchedResultsChangeType) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>,
+                    didChange sectionInfo: NSFetchedResultsSectionInfo,
+                    atSectionIndex sectionIndex: Int,
+                    for type: NSFetchedResultsChangeType) {
         
         switch type {
         case .insert:
             print("*** NSFetchedResultsChangeInsert (section)")
-            tableView.insertSections(IndexSet(integer: sectionIndex),
-                                     with: .fade)
+            tableView.insertSections(IndexSet(integer: sectionIndex), with: .fade)
         case .delete:
             print("*** NSFetchedResultsChangeDelete (section)")
-            tableView.deleteSections(IndexSet(integer: sectionIndex),
-                                     with: .fade)
+            tableView.deleteSections(IndexSet(integer: sectionIndex), with: .fade)
         case .update:
             print("*** NSFetchedResultsChangeUpdate (section)")
         case .move:
