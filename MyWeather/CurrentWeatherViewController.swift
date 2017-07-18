@@ -6,6 +6,8 @@
 //  Copyright © 2017 Vladislav Shilov. All rights reserved.
 //
 
+//There is a big code smell. I'll fix it later when understood patterns.
+
 import UIKit
 import CoreLocation
 import CoreData
