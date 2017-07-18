@@ -46,20 +46,8 @@ class HistoryViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let blurView = UIVisualEffectView(effect: lightBlurEffect)
-        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
-        blurView.frame = backgroundImage.bounds
-        backgroundImage.addSubview(blurView)
-        
-//        tableView.backgroundColor = UIColor(red: 69/255.0, green: 123/255.0,
-//                                            blue: 157/255.0, alpha: 1.0)
-        tableView.backgroundColor = UIColor.clear
-        tableView.backgroundView = backgroundImage
-        tableView.separatorColor = UIColor(red: 230/255.0, green: 57/255.0,
-                                           blue: 70/255.0, alpha: 1.0)
-        tableView.indicatorStyle = .white
-        
-        navigationItem.rightBarButtonItem = editButtonItem
+        addBlurEffect()
+        setUpTableView()
 
         //Загружаем данные из кор дата сразу же после загрузки вью
         performFetch()
@@ -71,6 +59,23 @@ class HistoryViewController: UITableViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return UIStatusBarStyle.lightContent
+    }
+    
+    fileprivate func addBlurEffect(){
+        let blurView = UIVisualEffectView(effect: lightBlurEffect)
+        backgroundImage.contentMode = UIViewContentMode.scaleAspectFill
+        blurView.frame = backgroundImage.bounds
+        backgroundImage.addSubview(blurView)
+
+    }
+    
+    fileprivate func setUpTableView(){
+        tableView.backgroundColor = UIColor.clear
+        tableView.backgroundView = backgroundImage
+        tableView.separatorColor = UIColor(red: 230/255.0, green: 57/255.0,
+                                           blue: 70/255.0, alpha: 1.0)
+        tableView.indicatorStyle = .white
+        navigationItem.rightBarButtonItem = editButtonItem
     }
     
     // MARK: -

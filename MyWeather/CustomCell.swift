@@ -21,18 +21,22 @@ class CustomCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        backgroundColor = UIColor.clear
-        
-        let selectionView = UIView(frame: CGRect.zero)
-        selectionView.backgroundColor = UIColor(red: 0/255.0, green: 155/255.0,
-                                                blue: 255/255.0, alpha: 0.2)
-        selectedBackgroundView = selectionView
+        setUpCell()
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    fileprivate func setUpCell(){
+        backgroundColor = UIColor.clear
+        
+        let selectionView = UIView(frame: CGRect.zero)
+        selectionView.backgroundColor = UIColor(red: 0/255.0, green: 155/255.0,
+                                                blue: 255/255.0, alpha: 0.2)
+        selectedBackgroundView = selectionView
     }
 
     

@@ -37,8 +37,20 @@ class DetailHistoryViewController: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //view.backgroundColor = UIColor(red: 168/255.0, green: 218/255.0, blue: 220/255.0, alpha: 1.0)
         
+        setUpView()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return UIStatusBarStyle.default
+    }
+    
+    fileprivate func setUpView(){
         iconLabel.text = icon
         if tempreture < 10{
             tempLabel.text = "0\(Int(tempreture))°"
@@ -56,31 +68,7 @@ class DetailHistoryViewController: UIViewController, UITextViewDelegate {
         coordinates.add(text: String(longitude))
         coordinates.add(text: String(latitude), separatedBy: ", ")
         addressLabel.text = "Your address: \(address).\nWith coordinates: \n\(coordinates)"
-
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        print("DISAPPEAR")
-    }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return UIStatusBarStyle.default
-    }
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

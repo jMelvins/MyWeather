@@ -12,7 +12,6 @@ import CoreData
 
 class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate, WeatherGetterDelegate, UITableViewDataSource, UITableViewDelegate {
 
-    @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var longitudeLabel: UILabel!
     @IBOutlet weak var latitudeLabel: UILabel!
@@ -22,22 +21,20 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     @IBOutlet weak var tempretureLabel: UILabel!
     @IBOutlet weak var mainWeather: UILabel!
     
-    //Хранит данные для передачи в CoreData
-    var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    //Храним данные для передачи в CoreData
     let locationManager = CLLocationManager()
+    var coordinate = CLLocationCoordinate2D(latitude: 0, longitude: 0)
+    var weatherDesc: Weather?
+    var managedObjectContext: NSManagedObjectContext?
+    
     //Хранит в себе прошлые запросы в CLLocation
     var location: CLLocation? = nil
-    //Храним здесь данные для передачи в CoreData.
-    var weatherDesc: Weather?
     
     var weatherGetter: WeatherGetter!
-    var determineLocation = DetermineLocation()
     
     var addressFromPlacemark = ""
-    var image = UIImage()
+    var wasFound = false
     
-    var managedObjectContext: NSManagedObjectContext?
-
     //Добавляем спиннер программно
     let spinner = UIActivityIndicatorView(activityIndicatorStyle: .gray)
     
@@ -45,11 +42,25 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         super.viewDidLoad()
         weatherGetter = WeatherGetter(delegate: self)
         
+        setUpView()
+        
+        //Начинаем искать сразуже при входе
+        getLocation()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle{
+        return UIStatusBarStyle.lightContent
+    }
+    
+    fileprivate func setUpView(){
         //Красим tableView
-        //tableView.backgroundColor = UIColor(red: 69/255.0, green: 123/255.0, blue: 157/255.0, alpha: 1.0)
         tableView.backgroundColor = UIColor.clear
         tableView.separatorColor = UIColor(red: 230/255.0, green: 57/255.0,
-                                    blue: 70/255.0, alpha: 1.0)
+                                           blue: 70/255.0, alpha: 1.0)
         tableView.indicatorStyle = .white
         
         //Задаем дефолтные значения
@@ -68,37 +79,21 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             spinner.tag = 1000
             view.addSubview(spinner)
         }
-        
-        //Начинаем искать сразуже при входе
-        getLocation()
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle{
-        return UIStatusBarStyle.lightContent
     }
     
     // MARK: - WeatherGetterDelegate
     
     func didGetWeather(_ weather: Weather) {
         DispatchQueue.main.async {
-//            print("\nJust the weather: ")
-//            print(weather)
             
             self.weatherDesc = weather
+            self.wasFound = true
             
             self.tempretureLabel.text = "\(Int(round(weather.tempCelsius)))°"
             self.mainWeather.text = "\(weather.mainWeather)"
             self.iconLabel.text = self.determineWeatherIcon(iconID: weather.weatherIconID)
-            //self.determineWeatherIcon(iconID: weather.weatherIconID)
             
             self.tableView.reloadData()
-            
-            //Картинки плохого качества, будем юзать эмоджи
-            //self.downloadImageFromServer(iconID: weather.weatherIconID)
         }
         
         //Так как все данный получены - сохраняем в CoreData
@@ -112,9 +107,13 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     func didNotGetWeather(_ error: NSError) {
         DispatchQueue.main.async {
             print("Cant get weather")
+            self.spinner.stopAnimating()
+            self.spinner.isHidden = true
             self.tempretureLabel.text = "Check you internet connection!"
             self.mainWeather.text = "Could not determine the weather."
             self.iconLabel.text = self.determineWeatherIcon(iconID: "666")
+            self.addressLabel.text = "It's impossible to detirmine address without the Interner."
+            self.wasFound = false
         }
         print("didNotGetWeather error: \(error)")
 
@@ -175,16 +174,14 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-        locationManager.startUpdatingLocation()
+        locationManager.requestLocation()
     }
     
 
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let newLocation = locations.last!
-//        print("\nLocation from newLocation: \n")
-//        print(newLocation)
-//        
+        
         spinner.stopAnimating()
         spinner.isHidden = true
         
@@ -194,31 +191,19 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             return
         }
         
-        if newLocation.timestamp.timeIntervalSinceNow < -5 {
-            return
-        }
-        
         var distance = CLLocationDistance(Double.greatestFiniteMagnitude)
         if let location = location {
-            //print("\nDistance: ")
             //Считаем дистанцию между прошлым запросом и нынешним
             distance = newLocation.distance(from: location)
-            locationManager.stopUpdatingLocation()
         }
         
-        //Если позиция изменилась, то перестаем обновлять
-        guard distance > 0 else{
-            locationManager.stopUpdatingLocation()
-            return
-        }
-
         //Если следующий запрос близок к прошлому, то ничего не делаем
         //1000 потому что аккуратность с которой ищет LocationManager = 1km
-        if location != nil && distance < 1000{
+        if location != nil && distance < 1000 && wasFound{
             return
         }
         
-        if location == nil || distance > 5 {
+        if location == nil || distance >= 0 {
             location = newLocation
             locationManager.stopUpdatingLocation()
             
@@ -228,16 +213,14 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                 self.tableView.reloadData()
             }
             
-            //let myLocation : CLLocationCoordinate2D = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
             coordinate = CLLocationCoordinate2DMake(newLocation.coordinate.latitude, newLocation.coordinate.longitude)
             
             longitudeLabel.text = String(format: "%0.8f", coordinate.longitude)
             latitudeLabel.text = String(format: "%0.8f", coordinate.latitude)
+            addressLabel.text = "Wait. We're trying to determine your location."
             
             weatherGetter.getWeather(lon: coordinate.longitude, lat: coordinate.latitude)
             getReversedGeocodeLocation(from: newLocation)
-            //updateLabels()
-
         }
     }
     
@@ -260,6 +243,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         DispatchQueue.main.async {
             self.location = nil
+            self.weatherDesc = nil
             self.tableView.reloadData()
         }
     }
@@ -294,13 +278,12 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
                     line.add(text: placemark.administrativeArea, separatedBy: ", ")
                     line.add(text: placemark.postalCode, separatedBy: ", ")
                     line.add(text: placemark.country, separatedBy: ", ")
+                    
+                    //Обновляем данные
                     DispatchQueue.main.async {
-//                        print("\nGeocoded data: ")
-//                        print(self.addressFromPlacemark)
                         self.addressFromPlacemark = line
                         self.addressLabel.text = line
                         print("get reverse")
-                        //self.updateLabels()
                     }
                 }
             }
@@ -309,6 +292,8 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             }
             
         })
+        spinner.stopAnimating()
+        spinner.isHidden = true
     }
     
     //MARK: - IBActions
@@ -318,10 +303,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         spinner.isHidden = false
         
         getLocation()
-        
-        //savingDataInCoreData()
-        //determineLocation.getLocation(locationManager: locationManager, delegate: self)
-        //updateLabels()
     }
     
     // MARK: - TableView
