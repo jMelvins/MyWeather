@@ -83,8 +83,11 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
     
     // MARK: - WeatherGetterDelegate
     
+    var counter = 0
+    
     func didGetWeather(_ weather: Weather) {
         DispatchQueue.main.async {
+            self.counter += 1
             
             self.weatherDesc = weather
             self.wasFound = true
@@ -203,7 +206,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             return
         }
         
-        if location == nil || distance >= 0 {
+        if location == nil || distance >= 0 || location!.horizontalAccuracy > newLocation.horizontalAccuracy{
             location = newLocation
             locationManager.stopUpdatingLocation()
             
