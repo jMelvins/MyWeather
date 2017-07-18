@@ -308,7 +308,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         return 5
     }
 
-    //Привет, огромный костыль
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
         
@@ -343,10 +342,10 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             cell.detailTextLabel?.text = "\(dateFormatter)"
         case 1:
             cell.textLabel?.text = "Weather description"
-            cell.detailTextLabel?.text = "\(String((weatherDesc?.weatherDescription)!)!.uppercased())"        case 2:
+            cell.detailTextLabel?.text = "\(String((weatherDesc?.weatherDescription)!)!.uppercased())"
+        case 2:
             cell.textLabel?.text = "Humidity 💧"
             cell.detailTextLabel?.text = "\(weatherDesc!.humidity)%"
-
         case 3:
             cell.textLabel?.text = "Wind speed 💨"
             cell.detailTextLabel?.text = "\(weatherDesc!.windSpeed) m/s"
@@ -357,7 +356,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
             return cell
         }
         
-       
         return cell
     }
     
