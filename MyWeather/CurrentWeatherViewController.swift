@@ -204,7 +204,7 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         
         //Если следующий запрос близок к прошлому, то ничего не делаем
         //1000 потому что аккуратность с которой ищет LocationManager = 1km
-        if location != nil && distance < 1000 && wasFound{
+        if location != nil && distance < 1000{
             return
         }
         
