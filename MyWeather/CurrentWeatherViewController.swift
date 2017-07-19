@@ -49,10 +49,6 @@ class CurrentWeatherViewController: UIViewController, CLLocationManagerDelegate,
         //Начинаем искать сразуже при входе
         getLocation()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-    }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
         return UIStatusBarStyle.lightContent
