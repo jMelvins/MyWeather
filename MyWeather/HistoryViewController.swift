@@ -53,8 +53,9 @@ class HistoryViewController: UITableViewController {
         performFetch()
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.hidesBarsOnSwipe = true
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle{
