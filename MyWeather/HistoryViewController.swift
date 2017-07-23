@@ -11,12 +11,7 @@ import CoreData
 
 class HistoryViewController: UITableViewController {
     
-    var managedObjectContext: NSManagedObjectContext!
-
-    //Массив, хранящий в себе данные для каждой ячейки
-    //Служит для передачи даных в следующий вью
-    var weatherRequest = [WeatherRequest]()
-    
+    var managedObjectContext: NSManagedObjectContext!    
     
     lazy var fetchedResultsController:
         NSFetchedResultsController<WeatherRequest> = {
@@ -103,11 +98,8 @@ class HistoryViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! CustomCell
-        
-        //Где, если не здесь заполнить массив
-        let history = fetchedResultsController.object(at: indexPath)
-        weatherRequest.append(history)
-        
+       
+        let history = fetchedResultsController.object(at: indexPath) 
         //Т.к ячейка кастомная, можно вынести методы по ее заполнению в отдельный класс
         cell.configure(for: history)
         
@@ -121,7 +113,6 @@ class HistoryViewController: UITableViewController {
             let history = fetchedResultsController.object(at: indexPath)
             managedObjectContext.delete(history)
             print(indexPath)
-            weatherRequest.remove(at: indexPath.row)
             do {
                 try managedObjectContext.save()
             } catch {
@@ -139,7 +130,7 @@ class HistoryViewController: UITableViewController {
         if segue.identifier == "DeckSegue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 let controller = segue.destination as! DetailHistoryViewController
-                let toSend = weatherRequest[indexPath.row]
+                let toSend = fetchedResultsController.object(at: indexPath)
                 controller.icon = toSend.icon!
                 controller.address = toSend.address!
                 controller.tempreture = toSend.tempreture
