@@ -1,0 +1,12 @@
+PODS:
+  - DeckTransition (0.2.0)
+
+DEPENDENCIES:
+  - DeckTransition
+
+SPEC CHECKSUMS:
+  DeckTransition: 9028a222282d317bdd1199b681ecac15c3834bbc
+
+PODFILE CHECKSUM: bf56f9e4a121ec910e106db35f6c9daed42e34f4
+
+COCOAPODS: 1.1.1
